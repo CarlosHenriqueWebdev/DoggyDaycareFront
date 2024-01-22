@@ -10,7 +10,7 @@ const Introduction = () => {
     <div className="px-[24px] lg:px-[48px] mb-[72px]">
       {contentData.data ? (
         <>
-          <div className="flex flex-col gap-4 xl:gap-5 max-w-[800px] relative after:bg-[url(/kids-toy.svg)] after:-z-20 after:content-[''] after:absolute after:w-[100px] after:h-[80px] after:bg-no-repeat after:bg-contain after:block after:-right-[0px] after:bottom-[0px] after:-rotate-[16deg] lg:after:w-[140px] lg:after:h-[140px]">
+          <div className="flex flex-col gap-4 xl:gap-5 max-w-[800px]">
             <h2
               id="main-content"
               className="w-fit text-primaryBlue font-bold text-[1.75rem]"

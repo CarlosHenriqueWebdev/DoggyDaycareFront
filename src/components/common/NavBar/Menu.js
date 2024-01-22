@@ -44,18 +44,18 @@ const Menu = ({ menuOpen, setMenuOpen, isScreen1024Px, isLinkActive }) => {
         {linksData.allLinks[0].links.map((mapItem, itemIndex) => (
           <li key={itemIndex} className="w-full lg:w-fit">
             <Link
-              className={`py-[6px] pl-[24px] border-b-[1px] border-t-[1px] border-white50 hover:border-skyBlue border-solid active:text-primaryBlue active:border-primaryBlue hover:text-skyBlue block w-full text-lightBlue lg:border-none lg:p-[12px] lg:font-bold lg:text-white75 lg:hover:text-[white] ${
+              className={`py-[6px] pl-[24px] border-b-[1px] border-t-[1px] border-white50 hover:border-skyBlue border-solid active:text-primaryBlue active:border-primaryBlue hover:text-skyBlue block w-full text-lightBlue lg:border-none lg:p-[12px] lg:font-bold lg:text-lightBlue ${
                 isLinkActive(mapItem.href)
-                  ? "!text-skyBlue !border-skyBlue lg:!text-[white]"
+                  ? "!text-skyBlue !border-skyBlue lg:!text-skyBlue"
                   : ""
               } ${
                 mapItem.href === vagasHref && router.asPath.includes("/vagas/")
-                  ? "!text-skyBlue !border-skyBlue lg:!text-[white]"
+                  ? "!text-skyBlue !border-skyBlue lg:!text-skyBlue"
                   : ""
               } ${
                 mapItem.href === servicosHref &&
                 router.asPath.includes("/servicos/")
-                  ? "!text-skyBlue !border-skyBlue lg:!text-[white]"
+                  ? "!text-skyBlue !border-skyBlue lg:!text-skyBlue"
                   : ""
               }`}
               href={mapItem.href}

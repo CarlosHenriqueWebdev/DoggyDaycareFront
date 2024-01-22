@@ -113,20 +113,6 @@ const ReservationForm = () => {
     return input;
   };
 
-  const handleChangeField = (fieldName) => (e) => {
-    const formattedValue = phoneFormat(e.target.value);
-
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [fieldName]: formattedValue,
-    }));
-  };
-
-  const handleChangePhone = handleChangeField("PhoneNumber");
-  const handleChangeEmergencyPhone = handleChangeField(
-    "EmergencyContact.EmergencyPhoneNumber"
-  );
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -312,8 +298,6 @@ const ReservationForm = () => {
 
     if (!data.PhoneNumber.trim()) {
       errors.PhoneNumber = "O Número de Telefone é obrigatório";
-    } else if (data.PhoneNumber.length < 15) {
-      errors.PhoneNumber = "Número de Telefone inválido";
     }
 
     if (!data.Email.trim()) {
@@ -333,8 +317,6 @@ const ReservationForm = () => {
 
     if (!data.EmergencyContact.EmergencyName.trim()) {
       errors.EmergencyName = "O Nome do Contato de Emergência é obrigatório";
-    } else if (data.EmergencyContact.EmergencyName.length < 15) {
-      errors.EmergencyName = "Número de Telefone inválido";
     }
 
     if (!data.EmergencyContact.EmergencyPhoneNumber.trim()) {
@@ -786,7 +768,7 @@ const ReservationForm = () => {
                   "text",
                   "Digite seu número",
                   phoneNumberRef,
-                  handleChangePhone
+                  handleChange
                 )}
               </div>
             </div>
@@ -855,7 +837,7 @@ const ReservationForm = () => {
                       "text",
                       "Digite o número de telefone do contato de emergência",
                       emergencyPhoneNumberRef,
-                      handleChangeEmergencyPhone
+                      handleChange
                     )}
                   </div>
                 </div>
