@@ -69,14 +69,16 @@ const MapPage = () => {
         />
       )}
 
-      <Map handleImageClick={handleImageClick} />
+      <div className="overflow-hidden">
+        <Map handleImageClick={handleImageClick} />
 
-      <Testimonials
-        extraClassName="border-t-[8px] border-solid border-skyBlue !mt-[0px]"
-        skeletonClassName="!mt-[0px]"
-      />
+        <Testimonials
+          extraClassName="border-t-[6px] border-solid border-skyBlue !mt-[0px]"
+          skeletonClassName="!mt-[0px]"
+        />
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 };

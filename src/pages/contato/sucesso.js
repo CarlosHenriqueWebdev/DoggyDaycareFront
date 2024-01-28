@@ -15,11 +15,13 @@ const sucesso = () => {
 
       <NavBar />
 
-      <ConfettiComponent />
+      <div className="overflow-hidden">
+        <ConfettiComponent />
 
-      <SuccessMessage />
+        <SuccessMessage />
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 };

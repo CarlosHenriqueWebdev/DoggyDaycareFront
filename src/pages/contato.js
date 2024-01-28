@@ -31,9 +31,11 @@ const Contato = () => {
 
       <NavBar />
 
-      <Contact />
+      <div className="overflow-hidden">
+        <Contact />
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 };

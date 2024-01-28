@@ -39,13 +39,15 @@ const Vagas = () => {
 
       <NavBar />
 
-      <LazyLoadComponent lazyComponent={<PositionsHero />} />
-      <LazyLoadComponent lazyComponent={<MainContent />} />
-      <LazyLoadComponent lazyComponent={<Benefits />} />
-      <LazyLoadComponent lazyComponent={<ViewAboutUs />} />
-      <LazyLoadComponent lazyComponent={<WorkersTestimonials />} />
-      <LazyLoadComponent lazyComponent={<CallToActionContact />} />
-      <LazyLoadComponent lazyComponent={<Footer />} />
+      <div className="overflow-hidden">
+        <LazyLoadComponent lazyComponent={<PositionsHero />} />
+        <LazyLoadComponent lazyComponent={<MainContent />} />
+        <LazyLoadComponent lazyComponent={<Benefits />} />
+        <LazyLoadComponent lazyComponent={<ViewAboutUs />} />
+        <LazyLoadComponent lazyComponent={<WorkersTestimonials />} />
+        <LazyLoadComponent lazyComponent={<CallToActionContact />} />
+        <LazyLoadComponent lazyComponent={<Footer />} />
+      </div>
     </div>
   );
 };

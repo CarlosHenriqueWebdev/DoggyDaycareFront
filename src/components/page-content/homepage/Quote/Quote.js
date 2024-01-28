@@ -16,7 +16,7 @@ const Quote = () => {
             style={{
               backgroundImage: `url(https://not-cool.onrender.com${contentData.data.attributes.QuoteDivider.BackgroundImage.data.attributes.url})`,
             }}
-            className="bg-no-repeat bg-cover bg-center flex justify-center items-center relative bg-fixed border-solid border-[black] border-y-[4px]"
+            className="bg-no-repeat bg-cover bg-center flex justify-center items-center relative bg-fixed border-solid border-lightBlue border-y-[6px]"
           >
             <div
               style={{

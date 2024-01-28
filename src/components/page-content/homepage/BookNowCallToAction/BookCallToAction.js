@@ -10,11 +10,11 @@ const BookNowCallToAction = () => {
   return (
     <>
       {contentData.data ? (
-        <div className="mt-[72px] flex flex-col gap-7">
+        <div className="mt-[48px] flex flex-col gap-7">
           <div className="flex flex-col gap-[12px] text-center">
             <div
               className={
-                "relative pt-3 pb-3 after:bg-[url(/dog-walking-paws.webp)] after:content-[''] after:absolute after:w-full after:h-full after:bg-repeat-x after:-z-10 after:bg-center after:left-0 after:top-0"
+                "relative pt-3 pb-3  after:absolute after:w-full after:h-full after:bg-repeat-x after:-z-10 after:bg-center after:left-0 after:top-0"
               }
             >
               <h2 className="text-primaryBlue font-bold text-[1.75rem] px-[24px] lg:px-[48px] ">

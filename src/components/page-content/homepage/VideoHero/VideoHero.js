@@ -15,7 +15,7 @@ const VideoHero = () => {
     <>
       {contentData01.data && contentData02.data ? (
         <div className="mb-[72px]">
-          <div className="relative border-b-[4px] border-solid border-[black]">
+          <div className="relative border-b-[6px] border-solid border-skyBlue">
             <video
               autoPlay
               muted

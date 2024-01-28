@@ -36,15 +36,17 @@ const Servicos = () => {
 
       <NavBar />
 
-      <ServicesHero />
+      <div className="overflow-hidden">
+        <ServicesHero />
 
-      <Introduction />
+        <Introduction />
 
-      <ServicesList />
+        <ServicesList />
 
-      <Testimonials extraClassName="border-t-[4px] border-solid border-skyBlue" />
+        <Testimonials extraClassName="border-t-[6px] border-solid border-skyBlue" />
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 };

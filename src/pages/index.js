@@ -33,10 +33,12 @@ const Home = () => {
 
   const urlToFetchImage01 =
     "https://not-cool.onrender.com/api/content-media?populate[LongTextDescription][populate][ThirdTextGroup][populate]=*";
-  const { completeDataJSON: contentData01 } = useDataFetching(urlToFetchImage01);
+  const { completeDataJSON: contentData01 } =
+    useDataFetching(urlToFetchImage01);
 
   const urlToFetchImage02 = `https://not-cool.onrender.com/api/services-collections?populate=*`;
-  const { completeDataJSON: contentData02 } = useDataFetching(urlToFetchImage02);
+  const { completeDataJSON: contentData02 } =
+    useDataFetching(urlToFetchImage02);
 
   const urlToFetchImage03 =
     "https://not-cool.onrender.com/api/content-media?populate[Testimonials][populate]=*";
@@ -95,28 +97,30 @@ const Home = () => {
         />
       )}
 
-      <LazyLoadComponent lazyComponent={<VideoHero />} />
-      <LazyLoadComponent lazyComponent={<SiteFeatures />} />
-      <LazyLoadComponent lazyComponent={<NumberCounter />} />
-      <LazyLoadComponent
-        lazyComponent={<LongText handleImageClick={handleImageClick} />}
-      />
-      <LazyLoadComponent
-        lazyComponent={
-          <Testimonials
-            handleImageClick={handleImageClick}
-            extraClassName="border-solid border-skyBlue border-y-[4px]"
-          />
-        }
-      />
-      <LazyLoadComponent
-        lazyComponent={<Services handleImageClick={handleImageClick} />}
-      />
-      <LazyLoadComponent lazyComponent={<BookNowCallToAction />} />
-      <LazyLoadComponent lazyComponent={<Quote />} />
-      <LazyLoadComponent lazyComponent={<Faq />} />
-      <LazyLoadComponent lazyComponent={<HiringSection />} />
-      <LazyLoadComponent lazyComponent={<Footer />} />
+      <div className="overflow-hidden">
+        <LazyLoadComponent lazyComponent={<VideoHero />} />
+        <LazyLoadComponent lazyComponent={<SiteFeatures />} />
+        <LazyLoadComponent lazyComponent={<NumberCounter />} />
+        <LazyLoadComponent
+          lazyComponent={<LongText handleImageClick={handleImageClick} />}
+        />
+        <LazyLoadComponent
+          lazyComponent={
+            <Testimonials
+              handleImageClick={handleImageClick}
+              extraClassName="border-solid border-skyBlue border-y-[6px]"
+            />
+          }
+        />
+        <LazyLoadComponent
+          lazyComponent={<Services handleImageClick={handleImageClick} />}
+        />
+        <LazyLoadComponent lazyComponent={<BookNowCallToAction />} />
+        <LazyLoadComponent lazyComponent={<Quote />} />
+        <LazyLoadComponent lazyComponent={<Faq />} />
+        <LazyLoadComponent lazyComponent={<HiringSection />} />
+        <LazyLoadComponent lazyComponent={<Footer />} />
+      </div>
     </main>
   );
 };

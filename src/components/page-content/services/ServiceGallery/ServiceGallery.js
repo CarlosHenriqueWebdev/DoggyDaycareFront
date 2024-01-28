@@ -10,7 +10,7 @@ const ServiceGallery = ({ contentData01, handleImageClick }) => {
         <>
           {contentData01.data?.map((mapItem, itemIndex) => (
             <div className="mb-[72px]" key={mapItem.id}>
-              <div className="overflow-hidden bg-midnightBlack py-[72px] border-y-[4px] border-solid border-skyBlue">
+              <div className="overflow-hidden bg-midnightBlack py-[72px] border-y-[6px] border-solid border-skyBlue">
                 <style jsx>{`
                   @keyframes scroll {
                     0% {

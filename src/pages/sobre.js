@@ -40,7 +40,8 @@ const About = () => {
 
   const urlToFetchImage03 =
     "https://not-cool.onrender.com/api/about-page?populate[YourTeam][populate][WorkerInformation][populate]=*";
-  const { completeDataJSON: contentData03 } = useDataFetching(urlToFetchImage03);
+  const { completeDataJSON: contentData03 } =
+    useDataFetching(urlToFetchImage03);
 
   const generateImagePaths = () => {
     // Replace this with the actual logic to extract image paths from servicesData.data
@@ -54,9 +55,11 @@ const About = () => {
     const testimonialsImagePath = `https://not-cool.onrender.com${contentData02.data.attributes.Testimonials.Image.data.attributes.formats.small.url}`;
 
     const workersImagePaths =
-      contentData03.data.attributes.YourTeam.WorkerInformation.map((mapItem) => {
-        return `https://not-cool.onrender.com${mapItem.WorkerImage.data.attributes.formats.small.url}`;
-      });
+      contentData03.data.attributes.YourTeam.WorkerInformation.map(
+        (mapItem) => {
+          return `https://not-cool.onrender.com${mapItem.WorkerImage.data.attributes.formats.small.url}`;
+        }
+      );
 
     // Combine ourHistoryImagePaths with other paths as needed
     const allImagePaths = [
@@ -99,20 +102,16 @@ const About = () => {
         />
       )}
 
-      <LazyLoadComponent lazyComponent={<AboutHero />} />
-      <LazyLoadComponent lazyComponent={<Introduction />} />
-      <LazyLoadComponent
-        lazyComponent={<History handleImageClick={handleImageClick} />}
-      />
-      <LazyLoadComponent lazyComponent={<WhyChooseUs />} />
-      <LazyLoadComponent
-        lazyComponent={
-          <Testimonials extraClassName="border-solid border-skyBlue border-y-[4px]" />
-        }
-      />
-      <LazyLoadComponent lazyComponent={<MeetOurTeam />} />
-      <LazyLoadComponent lazyComponent={<CallToActionBooking />} />
-      <LazyLoadComponent lazyComponent={<Footer />} />
+      <div className="overflow-hidden">
+        <LazyLoadComponent lazyComponent={<AboutHero />} />
+        <LazyLoadComponent lazyComponent={<Introduction />} />
+        <LazyLoadComponent
+          lazyComponent={<History handleImageClick={handleImageClick} />}
+        />
+        <LazyLoadComponent lazyComponent={<WhyChooseUs />} />
+        <LazyLoadComponent lazyComponent={<CallToActionBooking />} />
+        <LazyLoadComponent lazyComponent={<Footer />} />
+      </div>
     </div>
   );
 };

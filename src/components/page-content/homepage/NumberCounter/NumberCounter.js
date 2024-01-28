@@ -31,7 +31,7 @@ const NumberCounter = () => {
             style={{
               backgroundColor: `rgba(0, 0, 0, 0.${contentData.data.attributes.NumberCounter.GlassOverlayTransparency})`,
             }}
-            className="px-[24px] lg:px-[48px] mt-[72px] flex flex-col gap-2 items-center justify-center py-[12%] w-[100%] h-[100%] md:gap-[16px] md:py-[4%] lg:grid lg:grid-cols-3 border-solid border-[black] border-y-[4px]"
+            className="px-[24px] lg:px-[48px] mt-[72px] flex flex-col gap-2 items-center justify-center py-[12%] w-[100%] h-[100%] md:gap-[16px] md:py-[4%] lg:grid lg:grid-cols-3 border-solid border-crimsonRed border-y-[6px]"
           >
             {contentData.data.attributes.NumberCounter.NumberCounterRepetable.map(
               (mapItem) => (

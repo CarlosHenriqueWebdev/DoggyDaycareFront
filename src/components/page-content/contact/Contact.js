@@ -31,6 +31,7 @@ const Contact = () => {
   const messageRef = useRef(null);
 
   const [isShaking, setShaking] = useState(false);
+  const [unexpectedError, setUnexpectedError] = useState(false);
   const buttonClassName = `btn ${isShaking ? "shake" : ""}`;
 
   const scrollToError = (errors, refs, priorityList) => {
@@ -88,9 +89,9 @@ const Contact = () => {
           }
         );
 
-        if (response.ok) {
-          console.log("Form submitted successfully!");
+        const responseData = await response.json();
 
+        if (response.ok && responseData.data.attributes.isFormSuccessful) {
           // Get the current route
           const currentPath = router.asPath;
 
@@ -99,6 +100,10 @@ const Contact = () => {
 
           setSubmitting(false);
         } else {
+          setUnexpectedError(true);
+          setShaking(true);
+          setSubmitting(false);
+
           const errorDetails = await response.json(); // Parse the error response
           console.error("Error submitting form:", errorDetails);
         }
@@ -171,6 +176,7 @@ const Contact = () => {
   };
 
   const formFieldsHasError =
+    unexpectedError ||
     formErrors.FirstName ||
     formErrors.LastName ||
     formErrors.Email ||
@@ -191,6 +197,8 @@ const Contact = () => {
             <Link
               className="text-primaryBlue underline font-bold"
               href={"/perguntas-frequentes"}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               seção de Perguntas Frequentes (FAQ)
             </Link>
@@ -486,9 +494,10 @@ const Contact = () => {
                 className={`cursor-pointer transition-all bg-primaryBlue px-[32px] py-[16px] rounded-lg border-navyBlue border-b-[4px] hover:brightness-110  hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px] text-[white] font-bold md:max-w-[600px] flex flex-row gap-[16px] justify-center items-center ${
                   formFieldsHasError ? "!bg-crimsonRed !border-deepMaroon" : ""
                 } ${buttonClassName}`}
-                disabled={isSubmitting}
+                disabled={isSubmitting || unexpectedError}
               >
                 {isSubmitting ? "Enviando..." : "Enviar"}
+
                 <Image
                   aria-hidden={true}
                   className="w-[16px]"
@@ -499,6 +508,18 @@ const Contact = () => {
                   unoptimized
                 />
               </button>
+
+              {unexpectedError && (
+                <p
+                  className="text-crimsonRed font-bold"
+                  aria-live="assertive"
+                  role="alert"
+                >
+                  Um erro inesperado occoreu com o Provedor de Email, por favor,
+                  contate-me em: [carloshenrique.webdev@gmail.com], para eu
+                  poder resolver esse problema.
+                </p>
+              )}
 
               <div aria-live="assertive" role="alert">
                 {formFieldsHasError && (

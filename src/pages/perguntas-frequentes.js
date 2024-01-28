@@ -17,9 +17,11 @@ const FaqPage = () => {
 
       <NavBar />
 
-      <Faq />
+      <div className="overflow-hidden">
+        <Faq />
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 };

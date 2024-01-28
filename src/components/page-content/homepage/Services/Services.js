@@ -18,7 +18,7 @@ const Services = ({ handleImageClick }) => {
             {contentData02.data.attributes.ServicesSection.SectionTitle}
           </h2>
 
-          <hr aria-hidden="true" className="border-black25" />
+          <hr aria-hidden="true" className="border-lightBlue border-t-[6px]" />
 
           <div className="flex flex-col gap-[60px] md:gap-12">
             {contentData01.data &&
@@ -53,7 +53,7 @@ const Services = ({ handleImageClick }) => {
                       />
                     </div>
 
-                    <div className="overflow-hidden rounded-[8px]">
+                    <div className="overflow-hidden rounded-[8px] border-solid border-primaryBlue border-[4px]">
                       <Image
                         aria-hidden={true}
                         className="w-full cursor-zoom-in hover:scale-[1.2] transition-all"
@@ -66,11 +66,11 @@ const Services = ({ handleImageClick }) => {
                       />
                     </div>
                   </div>
-
-                  <hr aria-hidden="true" className="border-black25 mt-[24px]" />
                 </div>
               ))}
           </div>
+
+          <hr aria-hidden="true" className="border-lightBlue border-t-[6px]" />
         </div>
       ) : (
         <div

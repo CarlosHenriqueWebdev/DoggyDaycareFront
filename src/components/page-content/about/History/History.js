@@ -52,7 +52,11 @@ const History = ({ handleImageClick }) => {
                   <div className="overflow-hidden">
                     <Image
                       aria-hidden={true}
-                      className="block w-full h-full rounded-[12px] cursor-zoom-in hover:scale-[1.2] transition-all"
+                      className={`border-solid border-[4px] block w-full h-full rounded-[12px] cursor-zoom-in hover:scale-[1.2] transition-all  ${
+                        itemIndex % 2 === 0
+                          ? "border-crimsonRed"
+                          : "border-skyBlue"
+                      }`}
                       src={`https://not-cool.onrender.com${mapItem.Image.data.attributes.formats.medium.url}`}
                       alt={`Illustração ${itemIndex}`}
                       width="0"

@@ -53,6 +53,7 @@ const ReservationForm = () => {
   }, [firstGroupWithError]);
 
   const [isShaking, setShaking] = useState(false);
+  const [unexpectedError, setUnexpectedError] = useState(false);
   const buttonClassName = `btn ${isShaking ? "shake" : ""}`;
 
   const firstNameRef = useRef(null);
@@ -96,23 +97,6 @@ const ReservationForm = () => {
     "numberOfDogs",
   ];
 
-  const phoneFormat = (input) => {
-    input = input.replace(/\D/g, "");
-    const size = input.length;
-
-    if (size > 0) {
-      input = `(${input}`;
-    }
-    if (size > 2) {
-      input = `${input.slice(0, 3)}) ${input.slice(3, 12)}`;
-    }
-    if (size > 6) {
-      input = `${input.slice(0, 9)}-${input.slice(9)}`;
-    }
-
-    return input;
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -127,8 +111,6 @@ const ReservationForm = () => {
     const errors = validateForm(formData);
     setFormErrors(errors);
 
-    console.log(errors);
-
     if (Object.keys(errors).length === 0) {
       try {
         const response = await fetch(
@@ -142,9 +124,9 @@ const ReservationForm = () => {
           }
         );
 
-        if (response.ok) {
-          console.log("Form submitted successfully!");
+        const responseData = await response.json();
 
+        if (response.ok && responseData.data.attributes.isFormSuccessful) {
           // Get the current route
           const currentPath = router.asPath;
 
@@ -153,6 +135,10 @@ const ReservationForm = () => {
 
           setSubmitting(false);
         } else {
+          setUnexpectedError(true);
+          setShaking(true);
+          setSubmitting(false);
+
           const errorDetails = await response.json(); // Parse the error response
           console.error("Error submitting form:", errorDetails);
         }
@@ -397,6 +383,7 @@ const ReservationForm = () => {
   };
 
   const formFieldsHasError =
+    unexpectedError ||
     formErrors.FirstName ||
     formErrors.LastName ||
     formErrors.Email ||
@@ -1335,7 +1322,9 @@ const ReservationForm = () => {
                       className={`underline text-primaryBlue ${
                         formFieldsHasError ? "!text-deepMaroon" : ""
                       }`}
-                      href="/"
+                      href="/termos-e-condicoes"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       Termos e Condições
                     </Link>
@@ -1367,6 +1356,18 @@ const ReservationForm = () => {
                 unoptimized
               />
             </button>
+
+            {unexpectedError && (
+              <p
+                className="text-crimsonRed font-bold"
+                aria-live="assertive"
+                role="alert"
+              >
+                Um erro inesperado occoreu com o Provedor de Email, por favor,
+                contate-me em: [carloshenrique.webdev@gmail.com], para eu poder
+                resolver esse problema.
+              </p>
+            )}
 
             <div aria-live="assertive" role="alert">
               {formFieldsHasError && (

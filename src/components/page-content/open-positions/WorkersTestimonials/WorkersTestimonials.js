@@ -13,8 +13,7 @@ const WorkersTestimonials = () => {
 
   const urlToFetch02 =
     "https://not-cool.onrender.com/api/open-positions-page?populate[WokersTestimonials][populate]=*";
-  const { completeDataJSON: contentData02 } =
-    useDataFetching(urlToFetch02);
+  const { completeDataJSON: contentData02 } = useDataFetching(urlToFetch02);
 
   const [player, setPlayer] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);

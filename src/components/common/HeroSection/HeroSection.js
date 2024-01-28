@@ -15,7 +15,7 @@ const HeroSection = ({
         backgroundImage: `url(${backgroundImage})`,
         backgroundPosition: `${backgroundPosition}`,
       }}
-      className={`hero-shadow bg-cover mb-[72px] h-full bg-midnightBlack w-full bg-no-repeat relative border-b-[4px] border-solid border-[black] ${extraClassName}`}
+      className={`bg-cover mb-[72px] h-full bg-midnightBlack w-full bg-no-repeat relative border-b-[6px] border-solid border-skyBlue ${extraClassName}`}
     >
       <div
         style={{

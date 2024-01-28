@@ -107,115 +107,124 @@ const IndividualServices = () => {
         />
       )}
 
-      {contentData01 &&
-      contentData01.data &&
-      contentData02 &&
-      contentData02.data &&
-      contentData03 &&
-      contentData03.data &&
-      !loading ? (
-        <>
-          <LazyLoadComponent
-            lazyComponent={<IndividualServicesHero contentData01={contentData01} />}
-          />
+      <div className="overflow-hidden">
+        {contentData01 &&
+        contentData01.data &&
+        contentData02 &&
+        contentData02.data &&
+        contentData03 &&
+        contentData03.data &&
+        !loading ? (
+          <>
+            <LazyLoadComponent
+              lazyComponent={
+                <IndividualServicesHero contentData01={contentData01} />
+              }
+            />
 
-          <LazyLoadComponent
-            lazyComponent={
-              <ServiceBenefits contentData01={contentData01} contentData02={contentData02} />
-            }
-          />
+            <LazyLoadComponent
+              lazyComponent={
+                <ServiceBenefits
+                  contentData01={contentData01}
+                  contentData02={contentData02}
+                />
+              }
+            />
 
-          <LazyLoadComponent
-            lazyComponent={<ServiceDescription contentData01={contentData01} />}
-          />
+            <LazyLoadComponent
+              lazyComponent={
+                <ServiceDescription contentData01={contentData01} />
+              }
+            />
 
-          <LazyLoadComponent
-            lazyComponent={
-              <ServiceGallery
-                contentData01={contentData01}
-                handleImageClick={handleImageClick}
-              />
-            }
-          />
+            <LazyLoadComponent
+              lazyComponent={
+                <ServiceGallery
+                  contentData01={contentData01}
+                  handleImageClick={handleImageClick}
+                />
+              }
+            />
 
-          <LazyLoadComponent
-            lazyComponent={<ServicePricing contentData03={contentData03} />}
-          />
+            <LazyLoadComponent
+              lazyComponent={<ServicePricing contentData03={contentData03} />}
+            />
 
-          <LazyLoadComponent
-            lazyComponent={
-              <CallToActionContact extraClassName="md:text-center md:mx-auto" />
-            }
-          />
+            <LazyLoadComponent
+              lazyComponent={
+                <CallToActionContact extraClassName="md:text-center md:mx-auto" />
+              }
+            />
 
-          <LazyLoadComponent lazyComponent={<Footer />} />
-        </>
-      ) : (
-        <div aria-hidden="true">
-          <div>
-            <div className="mb-[72px] bg-skeletonLoading h-[70vh]"></div>
-          </div>
+            <LazyLoadComponent lazyComponent={<Footer />} />
+          </>
+        ) : (
+          <div aria-hidden="true">
+            <div>
+              <div className="mb-[72px] bg-skeletonLoading h-[70vh]"></div>
+            </div>
 
-          <div>
-            <div className="px-[24px] lg:px-[48px] grid gap-[48px]">
-              <div className="w-fit bg-skeletonLoading text-skeletonLoading rounded-[8px]">
-                Lorem ipsum dolor
-              </div>
+            <div>
+              <div className="px-[24px] lg:px-[48px] grid gap-[48px]">
+                <div className="w-fit bg-skeletonLoading text-skeletonLoading rounded-[8px]">
+                  Lorem ipsum dolor
+                </div>
 
-              <div className="gap-[24px] flex flex-col">
                 <div className="gap-[24px] flex flex-col">
-                  <div className="gap-[12px] flex flex-col">
-                    <h1 className="p-[8px] w-fit bg-skeletonLoading text-skeletonLoading rounded-[8px]">
-                      Lorem ipsum dolor
-                    </h1>
+                  <div className="gap-[24px] flex flex-col">
+                    <div className="gap-[12px] flex flex-col">
+                      <h1 className="p-[8px] w-fit bg-skeletonLoading text-skeletonLoading rounded-[8px]">
+                        Lorem ipsum dolor
+                      </h1>
 
-                    <p className="w-fit bg-skeletonLoading text-skeletonLoading rounded-[8px]">
-                      Lorem ipsum
-                    </p>
-                  </div>
+                      <p className="w-fit bg-skeletonLoading text-skeletonLoading rounded-[8px]">
+                        Lorem ipsum
+                      </p>
+                    </div>
 
-                  <div>
-                    <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                      {Array.from({ length: 7 }, (_, itemIndex) => (
-                        <li
-                          key={itemIndex}
-                          className="w-fit bg-skeletonLoading text-skeletonLoading rounded-[8px]"
-                        >
-                          Lorem ipsum dolor
-                        </li>
-                      ))}
-                    </ul>
+                    <div>
+                      <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                        {Array.from({ length: 7 }, (_, itemIndex) => (
+                          <li
+                            key={itemIndex}
+                            className="w-fit bg-skeletonLoading text-skeletonLoading rounded-[8px]"
+                          >
+                            Lorem ipsum dolor
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="px-[24px] lg:px-[48px] mt-[72px] flex flex-col gap-7">
-            <div className="flex flex-col gap-[12px]">
-              <div className="flex relative py-3">
-                <h1 className="w-fit text-skeletonLoading bg-skeletonLoading rounded-[12px] text-[1.75rem] px-[24px] lg:px-[48px] ">
-                  Lorem ipsum dolor sit
-                </h1>
+            <div className="px-[24px] lg:px-[48px] mt-[72px] flex flex-col gap-7">
+              <div className="flex flex-col gap-[12px]">
+                <div className="flex relative py-3">
+                  <h1 className="w-fit text-skeletonLoading bg-skeletonLoading rounded-[12px] text-[1.75rem] px-[24px] lg:px-[48px] ">
+                    Lorem ipsum dolor sit
+                  </h1>
+                </div>
+
+                <p className="text-skeletonLoading bg-skeletonLoading rounded-[12px] px-[24px] md:w-[80%] lg:px-[48px] ">
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Excepturi nesciunt natus unde dolorem voluptas. Sit
+                  architecto, facere.
+                </p>
               </div>
+            </div>
 
-              <p className="text-skeletonLoading bg-skeletonLoading rounded-[12px] px-[24px] md:w-[80%] lg:px-[48px] ">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Excepturi nesciunt natus unde dolorem voluptas. Sit architecto,
-                facere.
-              </p>
+            <div className="mt-[72px]">
+              <div className="mb-[72px] bg-black75 h-[30vh]"></div>
+            </div>
+
+            <div className="my-[72px] px-[24px] lg:px-[48px] rounded-[8px]">
+              <div className="bg-skeletonLoading h-[40vh] rounded-[8px]"></div>
             </div>
           </div>
-
-          <div className="mt-[72px]">
-            <div className="mb-[72px] bg-black75 h-[30vh]"></div>
-          </div>
-
-          <div className="my-[72px] px-[24px] lg:px-[48px] rounded-[8px]">
-            <div className="bg-skeletonLoading h-[40vh] rounded-[8px]"></div>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

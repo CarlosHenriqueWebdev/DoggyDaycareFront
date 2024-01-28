@@ -5,13 +5,15 @@ import IndividualPositionDesign from "@/components/page-content/open-positions/M
 
 const OpenPosition = () => {
   return (
-    <>
+    <div className="overflow-hidden">
       <NavBar />
 
-      <IndividualPositionDesign />
+      <div className="overflow-hidden">
+        <IndividualPositionDesign />
 
-      <Footer />
-    </>
+        <Footer />
+      </div>
+    </div>
   );
 };
 

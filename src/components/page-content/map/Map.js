@@ -253,7 +253,7 @@ const Map = () => {
 
             {selectedMarker ? (
               <div
-                className="border-solid border-t-[8px] border-skyBlue bg-midnightBlack w-full h-full px-[24px] lg:px-[48px] py-[48px]"
+                className="border-solid border-t-[6px] border-skyBlue bg-midnightBlack w-full h-full px-[24px] lg:px-[48px] py-[48px]"
                 ref={targetElementRef}
               >
                 <div>

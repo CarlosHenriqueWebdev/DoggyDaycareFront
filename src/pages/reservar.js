@@ -31,9 +31,11 @@ const Reservation = () => {
 
       <NavBar />
 
-      <ReservationForm />
+      <div className="overflow-hidden">
+        <ReservationForm />
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 };

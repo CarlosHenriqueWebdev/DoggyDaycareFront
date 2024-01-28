@@ -21,7 +21,7 @@ const HiringSection = () => {
             style={{
               backgroundColor: `rgba(0, 0, 0, 0.${contentData.data.attributes.JoinUs.GlassOverlayTransparency})`,
             }}
-            className="px-[24px] lg:px-[48px] mt-[72px] flex flex-col gap-2 py-[12%] w-[100%] h-[100%] sm:py-[8%] border-solid border-[black] border-t-[4px]"
+            className="px-[24px] lg:px-[48px] mt-[72px] flex flex-col gap-2 py-[12%] w-[100%] h-[100%] sm:py-[8%] border-solid border-skyBlue border-t-[6px]"
           >
             <div className="flex flex-col gap-3 text-center sm:gap-[20px]">
               <h2 className="text-[1.5rem]  text-skyBlue font-bold">

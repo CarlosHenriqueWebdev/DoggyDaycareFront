@@ -10,7 +10,7 @@ const Sitemap = () => {
   const linksData = NewSharedData();
 
   return (
-    <>
+    <div>
       <Head>
         <title>SiteMap | Doggy Daycare</title>
         <meta
@@ -21,60 +21,64 @@ const Sitemap = () => {
 
       <NavBar />
 
-      <div className="py-[72px] md:px-[24px] lg:px-[48px] text-[white] ">
-        <div className="grid gap-[24px]">
-          {linksData.allLinks.map((section, index) => (
-            <div className="grid gap-[16px] h-fit shadow-xl" key={index}>
-              <div className="grid custom-grid">
-                <div className="w-full rounded-l-[8px] bg-skyBlue h-full"></div>
+      <div className="overflow-hidden">
+        <div className="py-[72px] md:px-[24px] lg:px-[48px] text-[white] ">
+          <div className="grid gap-[24px]">
+            {linksData.allLinks.map((section, index) => (
+              <div className="grid gap-[16px] h-fit shadow-xl" key={index}>
+                <div className="grid custom-grid">
+                  <div className="w-full rounded-l-[8px] bg-skyBlue h-full"></div>
 
-                <div className="rounded-r-[8px] bg-[black] p-[24px] grid gap-[16px]">
-                  <h2 className="font-bold text-[1.375rem]">{section.title}</h2>
+                  <div className="rounded-r-[8px] bg-[black] p-[24px] grid gap-[16px]">
+                    <h2 className="font-bold text-[1.375rem]">
+                      {section.title}
+                    </h2>
 
-                  <ul className="font-medium px-[8px] grid gap-[12px]">
-                    {section.links.map((link, linkIndex) => (
-                      <li key={linkIndex}>
-                        <div className="flex gap-[4px]">
-                          <span className="text-primaryBlue">*</span>
+                    <ul className="font-medium px-[8px] grid gap-[12px]">
+                      {section.links.map((link, linkIndex) => (
+                        <li key={linkIndex}>
+                          <div className="flex gap-[4px]">
+                            <span className="text-primaryBlue">*</span>
 
-                          <Link
-                            className="text-[1.125rem] hover:underline"
-                            href={link.href}
-                          >
-                            {link.text}
-                          </Link>
-                        </div>
+                            <Link
+                              className="text-[1.125rem] hover:underline"
+                              href={link.href}
+                            >
+                              {link.text}
+                            </Link>
+                          </div>
 
-                        {link.sublinks && link.sublinks.length > 0 && (
-                          <ul className="px-[12px] gap-[4px] grid mt-[4px]">
-                            {link.sublinks.map((sublink, sublinkIndex) => (
-                              <li key={sublinkIndex}>
-                                <div className="flex gap-[4px]">
-                                  <span className="text-lightBlue">*</span>
+                          {link.sublinks && link.sublinks.length > 0 && (
+                            <ul className="px-[12px] gap-[4px] grid mt-[4px]">
+                              {link.sublinks.map((sublink, sublinkIndex) => (
+                                <li key={sublinkIndex}>
+                                  <div className="flex gap-[4px]">
+                                    <span className="text-lightBlue">*</span>
 
-                                  <Link
-                                    className="text-[1.125rem] hover:underline"
-                                    href={sublink.href}
-                                  >
-                                    {sublink.text}
-                                  </Link>
-                                </div>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
+                                    <Link
+                                      className="text-[1.125rem] hover:underline"
+                                      href={sublink.href}
+                                    >
+                                      {sublink.text}
+                                    </Link>
+                                  </div>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
-      <Footer />
-    </>
+        <Footer />
+      </div>
+    </div>
   );
 };
 
