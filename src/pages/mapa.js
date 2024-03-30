@@ -5,7 +5,8 @@ import ImageCarousel from "@/components/utils/ImageCarousel";
 import useDataFetching from "@/hooks/useDataFetching";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { API_BASE_URL } from "../../lib/config";
 
 // Create a loading component for Map
 const LoadingMap = () => (
@@ -29,7 +30,7 @@ const MapPage = () => {
     setCurrentImageIndex(null);
   };
 
-  const urlToFetch01 = `https://not-cool.onrender.com/api/locations-maps?populate=*`;
+  const urlToFetch01 = `${API_BASE_URL}/api/locations-maps?populate=*`;
   const { completeDataJSON: contentData } = useDataFetching(urlToFetch01);
 
   const generateImagePaths = () => {
@@ -37,14 +38,12 @@ const MapPage = () => {
       // Use flatMap to handle the nested arrays and flatten the result
       return mapItem.attributes.ImageGallery.data.flatMap((innerMapItem) => {
         // Return the full image path
-        return `https://not-cool.onrender.com${innerMapItem.attributes.formats.small.url}`;
+        return `${API_BASE_URL}${innerMapItem.attributes.formats.small.url}`;
       });
     });
 
     // Flatten the result again to get a single array
     const allImagePaths = ourHistoryImagePaths?.flat() || [];
-
-    console.log("allImagePaths:", allImagePaths);
 
     return allImagePaths;
   };

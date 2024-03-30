@@ -1,5 +1,6 @@
 import React from "react";
 import HeroTextBox from "../../utils/HeroTextBox";
+import { API_BASE_URL } from "../../../../lib/config";
 
 const HeroSection = ({
   backgroundImage,
@@ -12,7 +13,7 @@ const HeroSection = ({
   return (
     <div
       style={{
-        backgroundImage: `url(${backgroundImage})`,
+        backgroundImage: `url(${API_BASE_URL + backgroundImage})`,
         backgroundPosition: `${backgroundPosition}`,
       }}
       className={`bg-cover mb-[72px] h-full bg-midnightBlack w-full bg-no-repeat relative border-b-[6px] border-solid border-skyBlue ${extraClassName}`}

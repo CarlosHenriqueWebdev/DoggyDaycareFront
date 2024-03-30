@@ -1,3 +1,16 @@
 {
-  "extends": ["next"]
+  "extends": ["next", "next/core-web-vitals"],
+  "rules": {
+    "no-unused-vars": "warn",          // Warns about unused variables
+    "no-unused-expressions": "warn",   // Warns about unused expressions
+    "no-undef": "error",               // Disallows the use of undeclared variables
+    "semi": ["error", "always"],       // Requires semicolons at the end of statements
+    "no-debugger": "error",            // Disallows the use of debugger statements
+    "prefer-const": "warn",            // Warns when variables are declared but never reassigned
+    "no-var": "error",                 // Disallows the use of var keyword, use let or const instead
+    "prefer-arrow-callback": "warn",   // Warns against using regular function syntax for callbacks
+    "arrow-spacing": "error",          // Requires space before and after arrow function's arrow
+    "no-extra-semi": "error",          // Disallows unnecessary semicolons
+    "no-unused-labels": "error"        // Disallows unused labels
+  }
 }

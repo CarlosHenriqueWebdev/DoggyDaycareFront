@@ -1,29 +1,40 @@
+import React from "react";
+import { gql } from "@apollo/client";
+import useStrapiData from "@/hooks/useStrapiData";
 import Button from "@/components/utils/Button";
-import useDataFetching from "@/hooks/useDataFetching";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+
+const GET_CALL_TO_ACTION_BOOKING = gql`
+  query GetCallToActionBooking {
+    aboutPage {
+      data {
+        attributes {
+          CallToAction {
+            Title
+            Description
+          }
+        }
+      }
+    }
+  }
+`;
 
 const CallToActionBooking = () => {
-  const urlToFetch =
-    "https://not-cool.onrender.com/api/about-page?populate[CallToAction][populate]=*";
-  const { completeDataJSON: contentData } = useDataFetching(urlToFetch);
+  const { data } = useStrapiData(GET_CALL_TO_ACTION_BOOKING);
+
+  const ctaData = data?.aboutPage?.data?.attributes?.CallToAction;
 
   return (
     <>
-      {contentData.data ? (
+      {ctaData ? (
         <>
-          <div className="bg-[url(/pattern.webp)] bg-repeat text-[white] flex flex-col py-[8%] gap-9 px-[24px] md:py-[4%] lg:px-[48px] lg:items-center border-solid border-[black] border-t-[4px]">
-            <div className="flex flex-col gap-4 xl:gap-5 md:text-center ,md:items-center">
-              <h2 className="w-full font-bold text-[1.75rem]">
-                {contentData.data.attributes.CallToAction.Title}
+          <div className="bg-[url(/pattern.webp)] bg-repeat text-[white] flex flex-col py-[72px] gap-9 px-[24px] lg:px-[48px] lg:items-center border-solid border-[black] border-t-[4px]">
+            <div className="max-container flex flex-col gap-4 xl:gap-5 md:text-center md:items-center">
+              <h2 className="w-full font-bold text-[1.5rem] sm:text-[1.75rem]">
+                {ctaData.Title}
               </h2>
 
               <p className="font-semibold  sm:max-w-[600px] md:mx-auto">
-                {
-                  contentData.data.attributes.CallToAction.Description[0]
-                    .children[0].text
-                }
+                {ctaData.Description[0].children[0].text}
               </p>
 
               <Button

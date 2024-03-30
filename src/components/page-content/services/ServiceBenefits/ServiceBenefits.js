@@ -1,16 +1,15 @@
-import Button from "@/components/utils/Button";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const ServiceBenefits = ({ contentData01, contentData02 }) => {
   return (
-    <>
+    <div className="px-[24px] lg:px-[48px]">
       {contentData01.data && contentData02.data && (
-        <div>
-          {contentData01.data?.map((mapItem, itemIndex) => (
+        <div className="max-container">
+          {contentData01.data?.map((mapItem) => (
             <div key={mapItem.id}>
-              <div className="px-[24px] lg:px-[48px] grid gap-[48px]">
+              <div className="grid gap-[48px]">
                 <Link
                   id="main-content"
                   href={"/servicos"}
@@ -31,7 +30,7 @@ const ServiceBenefits = ({ contentData01, contentData02 }) => {
                 <div className="gap-[24px] flex flex-col">
                   <div className="gap-[12px] flex flex-col">
                     <div>
-                      <h1 className="font-bold text-[1.75rem]">
+                      <h1 className="font-bold text-[1.5rem] sm:text-[1.75rem]">
                         {mapItem.attributes.Title}
                       </h1>
 
@@ -42,10 +41,10 @@ const ServiceBenefits = ({ contentData01, contentData02 }) => {
 
                     <div>
                       <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                        {contentData02.data?.map((mapItem, itemIndex) => (
+                        {contentData02.data?.map((mapItem) => (
                           <div key={mapItem.id}>
                             {mapItem.attributes.Benefits.BenefitsList.map(
-                              (mapItem, itemIndex) => (
+                              (mapItem) => (
                                 <li
                                   key={mapItem.id}
                                   className="flex items-start gap-[8px] font-medium "
@@ -67,7 +66,7 @@ const ServiceBenefits = ({ contentData01, contentData02 }) => {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

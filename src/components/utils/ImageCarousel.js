@@ -1,6 +1,5 @@
 // components/ImageSlider.js
 import React, { useState, useEffect } from "react";
-import { useRef } from "react";
 
 const ImageCarousel = ({ imagesArray, closeModal, initialIndex }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(initialIndex);

@@ -1,6 +1,5 @@
 import Footer from "@/components/common/Footer/Footer";
 import NavBar from "@/components/common/NavBar/NavBar";
-import CallToActionBooking from "@/components/common/CallToAction/CallToActionBooking";
 import IndividualServicesHero from "@/components/page-content/services/IndividualServicesHero.js/IndividualServicesHero";
 import ServiceBenefits from "@/components/page-content/services/ServiceBenefits/ServiceBenefits";
 import ServiceDescription from "@/components/page-content/services/ServiceDescription/ServiceDescription";
@@ -14,8 +13,8 @@ import LazyLoadComponent from "@/components/common/LazyLoadComponent/LazyLoadCom
 import useCheckFetch from "@/hooks/useCheckFetch";
 import LoadingScreen from "@/components/common/LoadingScreen/LoadingScreen";
 import ServerDown from "@/components/common/ServerDown/ServerDown";
-import useDataFetching from "@/hooks/useDataFetching";
 import ImageCarousel from "@/components/utils/ImageCarousel";
+import { API_BASE_URL } from "../../../lib/config";
 
 const IndividualServices = () => {
   const router = useRouter();
@@ -36,19 +35,19 @@ const IndividualServices = () => {
     setCurrentImageIndex(null);
   };
 
-  const urlToFetch01 = `https://not-cool.onrender.com/api/services-collections?filters[slug]=${slug}&populate=*`;
+  const urlToFetch01 = `${API_BASE_URL}/api/services-collections?filters[slug]=${slug}&populate=*`;
   const { completeDataJSON: completeDataJSON01 } = useDataFetchSlug(
     urlToFetch01,
     { slug }
   );
 
-  const urlToFetch02 = `https://not-cool.onrender.com/api/services-collections?filters[slug]=${slug}&populate[Benefits][populate]=*`;
+  const urlToFetch02 = `${API_BASE_URL}/api/services-collections?filters[slug]=${slug}&populate[Benefits][populate]=*`;
   const { completeDataJSON: completeDataJSON02 } = useDataFetchSlug(
     urlToFetch02,
     { slug }
   );
 
-  const urlToFetch03 = `https://not-cool.onrender.com/api/services-collections?filters[slug]=${slug}&populate[Pricing][populate]=*`;
+  const urlToFetch03 = `${API_BASE_URL}/api/services-collections?filters[slug]=${slug}&populate[Pricing][populate]=*`;
   const { completeDataJSON: completeDataJSON03 } = useDataFetchSlug(
     urlToFetch03,
     { slug }
@@ -74,7 +73,7 @@ const IndividualServices = () => {
     const videoImagePaths = contentData01.data?.flatMap((videoItem) =>
       videoItem.attributes.ImageSlideshow.data.map(
         (imageItem) =>
-          `https://not-cool.onrender.com${imageItem.attributes.formats.small.url}`
+          `${API_BASE_URL}${imageItem.attributes.formats.small.url}`
       )
     );
 
@@ -83,8 +82,7 @@ const IndividualServices = () => {
     return allImagePaths;
   };
 
-  const apiUrl =
-    "https://not-cool.onrender.com/api/services-collections?populate=*";
+  const apiUrl = "${API_BASE_URL}/api/services-collections?populate=*";
   const { loading: checkLoading, error } = useCheckFetch(apiUrl);
 
   if (checkLoading) {
@@ -115,7 +113,7 @@ const IndividualServices = () => {
         contentData03 &&
         contentData03.data &&
         !loading ? (
-          <>
+          <div>
             <LazyLoadComponent
               lazyComponent={
                 <IndividualServicesHero contentData01={contentData01} />
@@ -157,7 +155,7 @@ const IndividualServices = () => {
             />
 
             <LazyLoadComponent lazyComponent={<Footer />} />
-          </>
+          </div>
         ) : (
           <div aria-hidden="true">
             <div>

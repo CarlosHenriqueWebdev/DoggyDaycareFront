@@ -20,7 +20,7 @@ const Button = ({
       {iconSrc && (
         <Image
           aria-hidden={true}
-          className="w-[16px]"
+          className="w-[16px] hidden sm:block"
           src={iconSrc}
           alt={altText}
           width={0}

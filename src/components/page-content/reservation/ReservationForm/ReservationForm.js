@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useRef, useEffect } from "react";
+import { API_BASE_URL } from "../../../../../lib/config";
 
 const ReservationForm = () => {
-  const urlToFetch = `https://not-cool.onrender.com/api/locations-maps?populate=*`;
+  const urlToFetch = `${API_BASE_URL}/api/locations-maps?populate=*`;
   const { completeDataJSON: contentData } = useDataFetching(urlToFetch);
 
   const [numberOfDogs, setNumberOfDogs] = useState("");
@@ -114,7 +115,7 @@ const ReservationForm = () => {
     if (Object.keys(errors).length === 0) {
       try {
         const response = await fetch(
-          "https://not-cool.onrender.com/api/booking-collections?populate=*",
+          API_BASE_URL + "/api/booking-collections?populate=*",
           {
             method: "POST",
             headers: {
@@ -575,7 +576,10 @@ const ReservationForm = () => {
     <>
       <div className="my-[72px]">
         <div className="px-[24px] lg:px-[48px]">
-          <h1 id="main-content" className="font-bold text-[1.75rem] uppercase">
+          <h1
+            id="main-content"
+            className="max-container font-bold text-[1.5rem] sm:text-[1.75rem] uppercase"
+          >
             Formulario de Reservação
           </h1>
         </div>
@@ -589,7 +593,7 @@ const ReservationForm = () => {
 
         <form className="" action="" onSubmit={handleSubmit}>
           <div className="px-[24px] lg:px-[48px]">
-            <div className="grid gap-[24px]">
+            <div className="max-container grid gap-[24px]">
               <div className="grid md:grid-cols-2 gap-[60px] items-start">
                 {contentData.data ? (
                   <>
@@ -695,68 +699,70 @@ const ReservationForm = () => {
             }`}
           />
 
-          <div className="px-[24px] lg:px-[48px] grid gap-[32px]">
-            <div>
-              <h2
-                tabIndex="0"
-                aria-label="Instruções: Insira as Informações do Proprietário nos Campos abaixo. (Pressione Tab para navegar)"
-                className="text-[1.5rem] font-bold"
-              >
-                Informações do Proprietário:
-              </h2>
-            </div>
-
-            <div className="grid gap-[24px]">
-              <div className="grid md:grid-cols-2 gap-[24px]">
-                {renderInputField(
-                  "Primeiro Nome",
-                  "FirstName",
-                  "FirstName",
-                  formData.FirstName,
-                  formErrors.FirstName,
-                  "text",
-                  "Digite seu primeiro nome",
-                  firstNameRef,
-                  handleChange
-                )}
-
-                {renderInputField(
-                  "Sobrenome",
-                  "LastName",
-                  "LastName",
-                  formData.LastName,
-                  formErrors.LastName,
-                  "text",
-                  "Digite seu sobrenome",
-                  lastNameRef,
-                  handleChange
-                )}
+          <div className="px-[24px] lg:px-[48px] ">
+            <div className="max-container grid gap-[32px]">
+              <div>
+                <h2
+                  tabIndex="0"
+                  aria-label="Instruções: Insira as Informações do Proprietário nos Campos abaixo. (Pressione Tab para navegar)"
+                  className="text-[1.5rem] font-bold"
+                >
+                  Informações do Proprietário:
+                </h2>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-[24px]">
-                {renderInputField(
-                  "Email",
-                  "Email",
-                  "Email",
-                  formData.Email,
-                  formErrors.Email,
-                  "text",
-                  "Digite seu endereço de email",
-                  emailRef,
-                  handleChange
-                )}
+              <div className="grid gap-[24px]">
+                <div className="grid md:grid-cols-2 gap-[24px]">
+                  {renderInputField(
+                    "Primeiro Nome",
+                    "FirstName",
+                    "FirstName",
+                    formData.FirstName,
+                    formErrors.FirstName,
+                    "text",
+                    "Digite seu primeiro nome",
+                    firstNameRef,
+                    handleChange
+                  )}
 
-                {renderInputField(
-                  "Telefóne",
-                  "PhoneNumber",
-                  "PhoneNumber",
-                  formData.PhoneNumber,
-                  formErrors.PhoneNumber,
-                  "text",
-                  "Digite seu número",
-                  phoneNumberRef,
-                  handleChange
-                )}
+                  {renderInputField(
+                    "Sobrenome",
+                    "LastName",
+                    "LastName",
+                    formData.LastName,
+                    formErrors.LastName,
+                    "text",
+                    "Digite seu sobrenome",
+                    lastNameRef,
+                    handleChange
+                  )}
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-[24px]">
+                  {renderInputField(
+                    "Email",
+                    "Email",
+                    "Email",
+                    formData.Email,
+                    formErrors.Email,
+                    "text",
+                    "Digite seu endereço de email",
+                    emailRef,
+                    handleChange
+                  )}
+
+                  {renderInputField(
+                    "Telefóne",
+                    "PhoneNumber",
+                    "PhoneNumber",
+                    formData.PhoneNumber,
+                    formErrors.PhoneNumber,
+                    "text",
+                    "Digite seu número",
+                    phoneNumberRef,
+                    handleChange
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -769,7 +775,7 @@ const ReservationForm = () => {
           />
 
           <div className="px-[24px] lg:px-[48px]">
-            <div className="grid gap-[32px]">
+            <div className="max-container grid gap-[32px]">
               <div>
                 <h2
                   aria-label="Instruções: Insira as Informações do Contato de Emergência nos Campos abaixo. (Pressione Tab para navegar)"
@@ -839,89 +845,94 @@ const ReservationForm = () => {
             }`}
           />
 
-          <div className="px-[24px] lg:px-[48px] grid gap-[32px] md:grid-cols-2 items-center">
-            <div className="grid gap-[32px]">
-              <div>
-                <h2 className="text-[1.5rem] font-bold">
-                  Sobre seu Animal de Estimação:
-                </h2>
-              </div>
+          <div className="px-[24px] lg:px-[48px]">
+            <div className="max-container grid gap-[32px] md:grid-cols-2 items-center">
+              <div className="grid gap-[32px]">
+                <div>
+                  <h2 className="text-[1.5rem] font-bold">
+                    Sobre seu Animal de Estimação:
+                  </h2>
+                </div>
 
-              <div className="grid gap-[24px]">
-                <div className="flex gap-[4px] flex-col">
-                  <label className="font-bold uppercase" htmlFor="numberOfDogs">
-                    Numero de Cães:<span className="text-crimsonRed">*</span>
-                  </label>
-
-                  <select
-                    ref={numberOfDogsRef}
-                    className={`${genericInputClassName} ${
-                      formErrors.numberOfDogs ? "!border-crimsonRed" : ""
-                    }`}
-                    name="numberOfDogs"
-                    id="numberOfDogs"
-                    value={numberOfDogs}
-                    onChange={handleSelectChange}
-                  >
-                    <option
-                      aria-label="Selecione o Número de Cães que você quer enviar para a nossa Creche"
-                      value=""
-                      disabled
+                <div className="grid gap-[24px]">
+                  <div className="flex gap-[4px] flex-col">
+                    <label
+                      className="font-bold uppercase"
+                      htmlFor="numberOfDogs"
                     >
-                      ⚠️ Selecione o Número de Cães ⚠️
-                    </option>
+                      Numero de Cães:<span className="text-crimsonRed">*</span>
+                    </label>
 
-                    {Array.from({ length: 7 }, (_, index) => (
-                      <option key={index + 1} value={index + 1}>
-                        {index + 1}
+                    <select
+                      ref={numberOfDogsRef}
+                      className={`${genericInputClassName} ${
+                        formErrors.numberOfDogs ? "!border-crimsonRed" : ""
+                      }`}
+                      name="numberOfDogs"
+                      id="numberOfDogs"
+                      value={numberOfDogs}
+                      onChange={handleSelectChange}
+                    >
+                      <option
+                        aria-label="Selecione o Número de Cães que você quer enviar para a nossa Creche"
+                        value=""
+                        disabled
+                      >
+                        ⚠️ Selecione o Número de Cães ⚠️
                       </option>
-                    ))}
-                  </select>
 
-                  {formErrors.numberOfDogs && (
-                    <span
-                      aria-hidden="true"
-                      className="font-bold text-crimsonRed"
-                    >
-                      {formErrors.numberOfDogs}
-                    </span>
-                  )}
+                      {Array.from({ length: 7 }, (_, index) => (
+                        <option key={index + 1} value={index + 1}>
+                          {index + 1}
+                        </option>
+                      ))}
+                    </select>
 
-                  {!formErrors.numberOfDogs && (
-                    <p
-                      aria-hidden="true"
-                      className="mt-[4px] text-black75 font-bold"
-                    >
-                      <span className="text-crimsonRed">*</span>O Número de Cães
-                      que você quer enviar para a nossa Creche
-                    </p>
-                  )}
+                    {formErrors.numberOfDogs && (
+                      <span
+                        aria-hidden="true"
+                        className="font-bold text-crimsonRed"
+                      >
+                        {formErrors.numberOfDogs}
+                      </span>
+                    )}
+
+                    {!formErrors.numberOfDogs && (
+                      <p
+                        aria-hidden="true"
+                        className="mt-[4px] text-black75 font-bold"
+                      >
+                        <span className="text-crimsonRed">*</span>O Número de
+                        Cães que você quer enviar para a nossa Creche
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="hidden md:block">
-              {formFieldsHasError ? (
-                <Image
-                  aria-hidden={true}
-                  className="rotate-[8deg] w-full h-[100px]"
-                  src="trail-and-ball-red.svg"
-                  alt="Bola de Tennis"
-                  width="0"
-                  height="0"
-                  unoptimized
-                />
-              ) : (
-                <Image
-                  aria-hidden={true}
-                  className="rotate-[8deg] w-full h-[100px]"
-                  src="trail-and-ball.svg"
-                  alt="Bola de Tennis"
-                  width="0"
-                  height="0"
-                  unoptimized
-                />
-              )}
+              <div className="hidden md:block">
+                {formFieldsHasError ? (
+                  <Image
+                    aria-hidden={true}
+                    className="rotate-[8deg] w-full h-[100px]"
+                    src="trail-and-ball-red.svg"
+                    alt="Bola de Tennis"
+                    width="0"
+                    height="0"
+                    unoptimized
+                  />
+                ) : (
+                  <Image
+                    aria-hidden={true}
+                    className="rotate-[8deg] w-full h-[100px]"
+                    src="trail-and-ball.svg"
+                    alt="Bola de Tennis"
+                    width="0"
+                    height="0"
+                    unoptimized
+                  />
+                )}
+              </div>
             </div>
           </div>
 
@@ -936,227 +947,232 @@ const ReservationForm = () => {
             {numberOfDogs !== "" &&
               formData.DogsInformation.map((mapItem, index) => (
                 <div key={index}>
-                  <div className="px-[24px] lg:px-[48px] grid gap-[24px]">
-                    <div>
-                      <h3
-                        aria-label={`Instruções: Insira as Informações do seu Cão #${
-                          index + 1
-                        } nos Campos abaixo. (Pressione Tab para navegar)`}
-                        tabIndex="0"
-                        className="text-[1.25rem] font-bold uppercase"
-                      >
-                        Cachorro #{index + 1}:
-                      </h3>
-                    </div>
+                  <div className="px-[24px] lg:px-[48px] ">
+                    <div className="max-container grid gap-[24px]">
+                      <div>
+                        <h3
+                          aria-label={`Instruções: Insira as Informações do seu Cão #${
+                            index + 1
+                          } nos Campos abaixo. (Pressione Tab para navegar)`}
+                          tabIndex="0"
+                          className="text-[1.25rem] font-bold uppercase"
+                        >
+                          Cachorro #{index + 1}:
+                        </h3>
+                      </div>
 
-                    <div className="grid md:grid-cols-2 gap-[24px]">
+                      <div className="grid md:grid-cols-2 gap-[24px]">
+                        {renderDogInfoInput(
+                          "Nome",
+                          `dogName${index + 1}`,
+                          `DogsInformation.${index}.DogName`,
+                          mapItem.DogName,
+                          formErrors.DogsInformation &&
+                            formErrors.DogsInformation[index] &&
+                            formErrors.DogsInformation[index].DogName,
+                          (e) => handleFieldChange(e, index, "DogName"),
+                          `Digite o nome do cachorro #${index + 1}`,
+                          true
+                        )}
+
+                        {renderDogInfoInput(
+                          "Raça",
+                          `breed${index + 1}`,
+                          `DogsInformation.${index}.Breed`,
+                          mapItem.Breed,
+                          formErrors.DogsInformation &&
+                            formErrors.DogsInformation[index] &&
+                            formErrors.DogsInformation[index].Breed,
+                          (e) => handleFieldChange(e, index, "Breed"),
+                          `Digite a raça do cachorro #${index + 1}`,
+                          true
+                        )}
+                      </div>
+
                       {renderDogInfoInput(
-                        "Nome",
-                        `dogName${index + 1}`,
-                        `DogsInformation.${index}.DogName`,
-                        mapItem.DogName,
+                        "Idade",
+                        `age${index + 1}`,
+                        `DogsInformation.${index}.Age`,
+                        mapItem.Age,
                         formErrors.DogsInformation &&
                           formErrors.DogsInformation[index] &&
-                          formErrors.DogsInformation[index].DogName,
-                        (e) => handleFieldChange(e, index, "DogName"),
-                        `Digite o nome do cachorro #${index + 1}`,
+                          formErrors.DogsInformation[index].Age,
+                        (e) => handleFieldChange(e, index, "Age"),
+                        `Digite a idade aproximada do seu Cão #${
+                          index + 1
+                        } em meses ou anos.`,
                         true
                       )}
 
-                      {renderDogInfoInput(
-                        "Raça",
-                        `breed${index + 1}`,
-                        `DogsInformation.${index}.Breed`,
-                        mapItem.Breed,
-                        formErrors.DogsInformation &&
-                          formErrors.DogsInformation[index] &&
-                          formErrors.DogsInformation[index].Breed,
-                        (e) => handleFieldChange(e, index, "Breed"),
-                        `Digite a raça do cachorro #${index + 1}`,
-                        true
-                      )}
-                    </div>
+                      <div className="flex gap-[4px] flex-col">
+                        <label
+                          className="font-bold uppercase"
+                          htmlFor="Message"
+                        >
+                          Necessidades Especiais / Condições Médicas /
+                          Informação Adicional:
+                        </label>
 
-                    {renderDogInfoInput(
-                      "Idade",
-                      `age${index + 1}`,
-                      `DogsInformation.${index}.Age`,
-                      mapItem.Age,
-                      formErrors.DogsInformation &&
-                        formErrors.DogsInformation[index] &&
-                        formErrors.DogsInformation[index].Age,
-                      (e) => handleFieldChange(e, index, "Age"),
-                      `Digite a idade aproximada do seu Cão #${
-                        index + 1
-                      } em meses ou anos.`,
-                      true
-                    )}
+                        <textarea
+                          className={`${genericInputClassName}`}
+                          rows="4"
+                          id={`additionalInfo${index + 1}`}
+                          name={`DogsInformation.${index}.AdditionalInformation`}
+                          value={mapItem.AdditionalInformation}
+                          onChange={(e) =>
+                            handleFieldChange(e, index, "AdditionalInformation")
+                          }
+                          placeholder={`Digite aqui quaisquer necessidades especiais, condições médicas, instruções especiais que você quer, ou informações adicionais sobre o seu cão #${
+                            index + 1
+                          }.`}
+                        ></textarea>
+                      </div>
 
-                    <div className="flex gap-[4px] flex-col">
-                      <label className="font-bold uppercase" htmlFor="Message">
-                        Necessidades Especiais / Condições Médicas / Informação
-                        Adicional:
-                      </label>
+                      <div className="grid md:grid-cols-2 gap-[24px]">
+                        <div className="h-fit grid gap-[12px]">
+                          <div>
+                            <h4
+                              aria-label={`Instruções: Selecione o Estado de Esterrilização do Cão #${
+                                index + 1
+                              } usando os Botões abaixo. (Pressione Tab para navegar)`}
+                              tabIndex="0"
+                              className="font-bold uppercase"
+                            >
+                              Estado de Esterilização:
+                              <span className="text-crimsonRed">*</span>
+                            </h4>
+                          </div>
 
-                      <textarea
-                        className={`${genericInputClassName}`}
-                        rows="4"
-                        id={`additionalInfo${index + 1}`}
-                        name={`DogsInformation.${index}.AdditionalInformation`}
-                        value={mapItem.AdditionalInformation}
-                        onChange={(e) =>
-                          handleFieldChange(e, index, "AdditionalInformation")
-                        }
-                        placeholder={`Digite aqui quaisquer necessidades especiais, condições médicas, instruções especiais que você quer, ou informações adicionais sobre o seu cão #${
-                          index + 1
-                        }.`}
-                      ></textarea>
-                    </div>
+                          <div className="grid">
+                            <div>
+                              {formErrors.DogsInformation &&
+                                formErrors.DogsInformation[index] &&
+                                formErrors.DogsInformation[index]
+                                  .SpreyedNeutered && (
+                                  <span className="block mt-[4px] font-bold text-crimsonRed">
+                                    {
+                                      formErrors.DogsInformation[index]
+                                        .SpreyedNeutered
+                                    }
+                                  </span>
+                                )}
 
-                    <div className="grid md:grid-cols-2 gap-[24px]">
-                      <div className="h-fit grid gap-[12px]">
-                        <div>
+                              <p
+                                tabIndex="0"
+                                aria-label="Mensagem Importante, leia antes de prosseguir: A informação sobre o estado de esterilização pode
+                            nos ajudar a proporcionar a melhor experiência
+                            para ele. Em caso do seu Cão ser muito jovem,
+                            então marque a opção 'Não se Aplica'. (Pressione Tab para navegar)"
+                                className={`mt-[8px] text-black75 font-bold ${
+                                  formErrors.DogsInformation &&
+                                  formErrors.DogsInformation[index] &&
+                                  formErrors.DogsInformation[index]
+                                    .SpreyedNeutered
+                                    ? "brightness-75 text-crimsonRed"
+                                    : ""
+                                }`}
+                              >
+                                <span
+                                  aria-hidden="true"
+                                  className="text-crimsonRed"
+                                >
+                                  *
+                                </span>
+                                A informação sobre o estado de esterilização
+                                pode nos ajudar a proporcionar a melhor
+                                experiência para ele. Em caso do seu Cão ser
+                                muito jovem, então marque a opção &apos;Não se
+                                Aplica&apos;.
+                              </p>
+                            </div>
+
+                            <div className="order-[-1] flex gap-[12px]">
+                              <label
+                                className={`${radioLabelClassName} ${
+                                  selectedOptions[index] ===
+                                  `spayedNeutered${index + 1}`
+                                    ? "!bg-primaryBlue text-[white] border-[black]"
+                                    : ""
+                                }`}
+                                htmlFor={`spayedNeutered${index + 1}`}
+                              >
+                                <input
+                                  className="visually-hidden"
+                                  type="radio"
+                                  id={`spayedNeutered${index + 1}`}
+                                  name={`DogsInformation.${index}.SpreyedNeutered`}
+                                  onChange={(e) => {
+                                    handleFieldChange(
+                                      e,
+                                      index,
+                                      "SpreyedNeutered"
+                                    );
+                                    handleRadioChange(e, index);
+                                  }}
+                                  value="Castrado(a)"
+                                />
+                                Castrado(a)
+                              </label>
+
+                              <label
+                                className={`${radioLabelClassName} ${
+                                  selectedOptions[index] ===
+                                  `notApplicable${index + 1}`
+                                    ? "!bg-primaryBlue text-[white] border-[black]"
+                                    : ""
+                                }`}
+                                htmlFor={`notApplicable${index + 1}`}
+                              >
+                                <input
+                                  className="visually-hidden"
+                                  type="radio"
+                                  id={`notApplicable${index + 1}`}
+                                  name={`DogsInformation.${index}.SpreyedNeutered`}
+                                  onChange={(e) => {
+                                    handleFieldChange(
+                                      e,
+                                      index,
+                                      "SpreyedNeutered"
+                                    );
+                                    handleRadioChange(e, index);
+                                  }}
+                                  value="Não Aplicavel"
+                                />
+                                Não se Aplica
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="h-fit grid gap-[12px]">
                           <h4
-                            aria-label={`Instruções: Selecione o Estado de Esterrilização do Cão #${
+                            aria-label={`Instruções: Selecione o Status de Vicanação do Cão #${
                               index + 1
                             } usando os Botões abaixo. (Pressione Tab para navegar)`}
                             tabIndex="0"
                             className="font-bold uppercase"
                           >
-                            Estado de Esterilização:
+                            Status de Vacinação:
                             <span className="text-crimsonRed">*</span>
                           </h4>
-                        </div>
 
-                        <div className="grid">
-                          <div>
-                            {formErrors.DogsInformation &&
-                              formErrors.DogsInformation[index] &&
-                              formErrors.DogsInformation[index]
-                                .SpreyedNeutered && (
-                                <span className="block mt-[4px] font-bold text-crimsonRed">
-                                  {
-                                    formErrors.DogsInformation[index]
-                                      .SpreyedNeutered
-                                  }
-                                </span>
-                              )}
-
-                            <p
-                              tabIndex="0"
-                              aria-label="Mensagem Importante, leia antes de prosseguir: A informação sobre o estado de esterilização pode
-                            nos ajudar a proporcionar a melhor experiência
-                            para ele. Em caso do seu Cão ser muito jovem,
-                            então marque a opção 'Não se Aplica'. (Pressione Tab para navegar)"
-                              className={`mt-[8px] text-black75 font-bold ${
-                                formErrors.DogsInformation &&
+                          <div className="grid">
+                            <div>
+                              {formErrors.DogsInformation &&
                                 formErrors.DogsInformation[index] &&
                                 formErrors.DogsInformation[index]
-                                  .SpreyedNeutered
-                                  ? "brightness-75 text-crimsonRed"
-                                  : ""
-                              }`}
-                            >
-                              <span
-                                aria-hidden="true"
-                                className="text-crimsonRed"
-                              >
-                                *
-                              </span>
-                              A informação sobre o estado de esterilização pode
-                              nos ajudar a proporcionar a melhor experiência
-                              para ele. Em caso do seu Cão ser muito jovem,
-                              então marque a opção &apos;Não se Aplica&apos;.
-                            </p>
-                          </div>
+                                  .VaccinationStatus && (
+                                  <span className="block mt-[4px] font-bold text-crimsonRed">
+                                    {
+                                      formErrors.DogsInformation[index]
+                                        .VaccinationStatus
+                                    }
+                                  </span>
+                                )}
 
-                          <div className="order-[-1] flex gap-[12px]">
-                            <label
-                              className={`${radioLabelClassName} ${
-                                selectedOptions[index] ===
-                                `spayedNeutered${index + 1}`
-                                  ? "!bg-primaryBlue text-[white] border-[black]"
-                                  : ""
-                              }`}
-                              htmlFor={`spayedNeutered${index + 1}`}
-                            >
-                              <input
-                                className="visually-hidden"
-                                type="radio"
-                                id={`spayedNeutered${index + 1}`}
-                                name={`DogsInformation.${index}.SpreyedNeutered`}
-                                onChange={(e) => {
-                                  handleFieldChange(
-                                    e,
-                                    index,
-                                    "SpreyedNeutered"
-                                  );
-                                  handleRadioChange(e, index);
-                                }}
-                                value="Castrado(a)"
-                              />
-                              Castrado(a)
-                            </label>
-
-                            <label
-                              className={`${radioLabelClassName} ${
-                                selectedOptions[index] ===
-                                `notApplicable${index + 1}`
-                                  ? "!bg-primaryBlue text-[white] border-[black]"
-                                  : ""
-                              }`}
-                              htmlFor={`notApplicable${index + 1}`}
-                            >
-                              <input
-                                className="visually-hidden"
-                                type="radio"
-                                id={`notApplicable${index + 1}`}
-                                name={`DogsInformation.${index}.SpreyedNeutered`}
-                                onChange={(e) => {
-                                  handleFieldChange(
-                                    e,
-                                    index,
-                                    "SpreyedNeutered"
-                                  );
-                                  handleRadioChange(e, index);
-                                }}
-                                value="Não Aplicavel"
-                              />
-                              Não se Aplica
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="h-fit grid gap-[12px]">
-                        <h4
-                          aria-label={`Instruções: Selecione o Status de Vicanação do Cão #${
-                            index + 1
-                          } usando os Botões abaixo. (Pressione Tab para navegar)`}
-                          tabIndex="0"
-                          className="font-bold uppercase"
-                        >
-                          Status de Vacinação:
-                          <span className="text-crimsonRed">*</span>
-                        </h4>
-
-                        <div className="grid">
-                          <div>
-                            {formErrors.DogsInformation &&
-                              formErrors.DogsInformation[index] &&
-                              formErrors.DogsInformation[index]
-                                .VaccinationStatus && (
-                                <span className="block mt-[4px] font-bold text-crimsonRed">
-                                  {
-                                    formErrors.DogsInformation[index]
-                                      .VaccinationStatus
-                                  }
-                                </span>
-                              )}
-
-                            <p
-                              tabIndex="0"
-                              aria-label="Mensagem Importante, leia antes de prosseguir: Se o
+                              <p
+                                tabIndex="0"
+                                aria-label="Mensagem Importante, leia antes de prosseguir: Se o
                               status de vacinação do seu cão não estiver
                               atualizado, ou você não tiver certeza. por favor,
                               conclua o formulário. Entraremos em contato por
@@ -1166,109 +1182,110 @@ const ReservationForm = () => {
                               creche! Agradecemos pela compreensão e aguardamos
                               a oportunidade de cuidar do seu animal de
                               estimação. (Pressione Tab para cotinuar e Navegar)"
-                              className={`mt-[8px] text-black75 font-bold ${
-                                formErrors.DogsInformation &&
-                                formErrors.DogsInformation[index] &&
-                                formErrors.DogsInformation[index]
-                                  .VaccinationStatus
-                                  ? "brightness-75 text-crimsonRed"
-                                  : ""
-                              }`}
-                            >
-                              <span className="text-crimsonRed">*</span>Se o
-                              status de vacinação do seu cão não estiver
-                              atualizado, ou você não tiver certeza. por favor,
-                              conclua o formulário. Entraremos em contato por
-                              e-mail para fornecer instruções adicionais sobre
-                              os próximos passos necessários para garantir que
-                              seu cão possa ser vacinado e participar da nossa
-                              creche! Agradecemos pela compreensão e aguardamos
-                              a oportunidade de cuidar do seu animal de
-                              estimação.
-                            </p>
-                          </div>
+                                className={`mt-[8px] text-black75 font-bold ${
+                                  formErrors.DogsInformation &&
+                                  formErrors.DogsInformation[index] &&
+                                  formErrors.DogsInformation[index]
+                                    .VaccinationStatus
+                                    ? "brightness-75 text-crimsonRed"
+                                    : ""
+                                }`}
+                              >
+                                <span className="text-crimsonRed">*</span>Se o
+                                status de vacinação do seu cão não estiver
+                                atualizado, ou você não tiver certeza. por
+                                favor, conclua o formulário. Entraremos em
+                                contato por e-mail para fornecer instruções
+                                adicionais sobre os próximos passos necessários
+                                para garantir que seu cão possa ser vacinado e
+                                participar da nossa creche! Agradecemos pela
+                                compreensão e aguardamos a oportunidade de
+                                cuidar do seu animal de estimação.
+                              </p>
+                            </div>
 
-                          <div className="order-[-1] flex gap-[12px]">
-                            <label
-                              className={`${radioLabelClassName} ${
-                                selectedOptions02[index] ===
-                                `updatedStatus${index + 1}`
-                                  ? "!bg-primaryBlue text-[white] border-[black]"
-                                  : ""
-                              }`}
-                              htmlFor={`updatedStatus${index + 1}`}
-                            >
-                              <input
-                                className="visually-hidden"
-                                type="radio"
-                                id={`updatedStatus${index + 1}`}
-                                name={`DogsInformation.${index}.VaccinationStatus`}
-                                onChange={(e) => {
-                                  handleFieldChange(
-                                    e,
-                                    index,
-                                    "VaccinationStatus"
-                                  );
-                                  handleRadioChange02(e, index);
-                                }}
-                                value="Atualizado"
-                              />
-                              Atualizada
-                            </label>
+                            <div className="order-[-1] flex gap-[12px]">
+                              <label
+                                className={`${radioLabelClassName} ${
+                                  selectedOptions02[index] ===
+                                  `updatedStatus${index + 1}`
+                                    ? "!bg-primaryBlue text-[white] border-[black]"
+                                    : ""
+                                }`}
+                                htmlFor={`updatedStatus${index + 1}`}
+                              >
+                                <input
+                                  className="visually-hidden"
+                                  type="radio"
+                                  id={`updatedStatus${index + 1}`}
+                                  name={`DogsInformation.${index}.VaccinationStatus`}
+                                  onChange={(e) => {
+                                    handleFieldChange(
+                                      e,
+                                      index,
+                                      "VaccinationStatus"
+                                    );
+                                    handleRadioChange02(e, index);
+                                  }}
+                                  value="Atualizado"
+                                />
+                                Atualizada
+                              </label>
 
-                            <label
-                              className={`${radioLabelClassName} ${
-                                selectedOptions02[index] ===
-                                `notUpdatedStatus${index + 1}`
-                                  ? "!bg-primaryBlue text-[white] border-[black]"
-                                  : ""
-                              }`}
-                              htmlFor={`notUpdatedStatus${index + 1}`}
-                            >
-                              <input
-                                className="visually-hidden"
-                                type="radio"
-                                id={`notUpdatedStatus${index + 1}`}
-                                name={`DogsInformation.${index}.VaccinationStatus`}
-                                onChange={(e) => {
-                                  handleFieldChange(
-                                    e,
-                                    index,
-                                    "VaccinationStatus"
-                                  );
-                                  handleRadioChange02(e, index);
-                                }}
-                                value="Não Atualizado"
-                              />
-                              Não Atualizada
-                            </label>
+                              <label
+                                className={`${radioLabelClassName} ${
+                                  selectedOptions02[index] ===
+                                  `notUpdatedStatus${index + 1}`
+                                    ? "!bg-primaryBlue text-[white] border-[black]"
+                                    : ""
+                                }`}
+                                htmlFor={`notUpdatedStatus${index + 1}`}
+                              >
+                                <input
+                                  className="visually-hidden"
+                                  type="radio"
+                                  id={`notUpdatedStatus${index + 1}`}
+                                  name={`DogsInformation.${index}.VaccinationStatus`}
+                                  onChange={(e) => {
+                                    handleFieldChange(
+                                      e,
+                                      index,
+                                      "VaccinationStatus"
+                                    );
+                                    handleRadioChange02(e, index);
+                                  }}
+                                  value="Não Atualizado"
+                                />
+                                Não Atualizada
+                              </label>
 
-                            <label
-                              className={`${radioLabelClassName} ${
-                                selectedOptions02[index] ===
-                                `notSureStatus${index + 1}`
-                                  ? "!bg-primaryBlue text-[white] border-[black]"
-                                  : ""
-                              }`}
-                              htmlFor={`notSureStatus${index + 1}`}
-                            >
-                              <input
-                                className="visually-hidden"
-                                type="radio"
-                                id={`notSureStatus${index + 1}`}
-                                name={`DogsInformation.${index}.VaccinationStatus`}
-                                onChange={(e) => {
-                                  handleFieldChange(
-                                    e,
-                                    index,
-                                    "VaccinationStatus"
-                                  );
-                                  handleRadioChange02(e, index);
-                                }}
-                                value="Não Tenho Certeza..."
-                              />
-                              Não Tenho Certeza...
-                            </label>
+                              <label
+                                className={`${radioLabelClassName} ${
+                                  selectedOptions02[index] ===
+                                  `notSureStatus${index + 1}`
+                                    ? "!bg-primaryBlue text-[white] border-[black]"
+                                    : ""
+                                }`}
+                                htmlFor={`notSureStatus${index + 1}`}
+                              >
+                                <input
+                                  className="visually-hidden"
+                                  type="radio"
+                                  id={`notSureStatus${index + 1}`}
+                                  name={`DogsInformation.${index}.VaccinationStatus`}
+                                  onChange={(e) => {
+                                    handleFieldChange(
+                                      e,
+                                      index,
+                                      "VaccinationStatus"
+                                    );
+                                    handleRadioChange02(e, index);
+                                  }}
+                                  value="Não Tenho Certeza..."
+                                />
+                                Não Tenho Certeza...
+                              </label>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -1285,121 +1302,124 @@ const ReservationForm = () => {
               ))}
           </div>
 
-          <div className="px-[24px] lg:px-[48px] grid gap-[12px]">
-            <label className="font-bold">
-              <input
-                className="visually-hidden"
-                type="checkbox"
-                checked={agreeToTerms}
-                onChange={handleCheckboxChange}
-              />
+          <div className="px-[24px] lg:px-[48px]">
+            <div className="max-container grid gap-[12px]">
+              <label className="font-bold">
+                <input
+                  className="visually-hidden"
+                  type="checkbox"
+                  checked={agreeToTerms}
+                  onChange={handleCheckboxChange}
+                />
 
-              <div className="flex gap-[8px] items-center">
-                <span
-                  className={`flex items-center justify-center cursor-pointer h-[20px] w-[20px] bg-[#f5f5f5] rounded-[4px] border-solid border-black50 border-[1px] ${
-                    agreeToTerms ? "!bg-primaryBlue" : ""
-                  }`}
-                >
-                  {" "}
-                  <Image
-                    aria-hidden={true}
-                    className="w-[12px] select-none"
-                    src="/checkmark.svg"
-                    alt="Check Icone"
-                    width={0}
-                    height={0}
-                    unoptimized
-                  />
-                </span>
+                <div className="flex gap-[8px] items-center">
+                  <span
+                    className={`flex items-center justify-center cursor-pointer h-[20px] w-[20px] bg-[#f5f5f5] rounded-[4px] border-solid border-black50 border-[1px] ${
+                      agreeToTerms ? "!bg-primaryBlue" : ""
+                    }`}
+                  >
+                    {" "}
+                    <Image
+                      aria-hidden={true}
+                      className="w-[12px] select-none"
+                      src="/checkmark.svg"
+                      alt="Check Icone"
+                      width={0}
+                      height={0}
+                      unoptimized
+                    />
+                  </span>
 
-                <div className="select-none">
-                  <p>
-                    <span aria-hidden="true" className="text-crimsonRed">
-                      *
-                    </span>{" "}
-                    Eu Concordo com os{" "}
-                    <Link
-                      className={`underline text-primaryBlue ${
-                        formFieldsHasError ? "!text-deepMaroon" : ""
-                      }`}
-                      href="/termos-e-condicoes"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Termos e Condições
-                    </Link>
-                  </p>
+                  <div className="select-none">
+                    <p>
+                      <span aria-hidden="true" className="text-crimsonRed">
+                        *
+                      </span>{" "}
+                      Eu Concordo com os{" "}
+                      <Link
+                        className={`underline text-primaryBlue ${
+                          formFieldsHasError ? "!text-deepMaroon" : ""
+                        }`}
+                        href="/termos-e-condicoes"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Termos e Condições
+                      </Link>
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </label>
+              </label>
 
-            {formErrors.agreeToTerms && (
-              <span aria-hidden="true" className="font-bold text-crimsonRed">
-                {formErrors.agreeToTerms}
-              </span>
-            )}
+              {formErrors.agreeToTerms && (
+                <span aria-hidden="true" className="font-bold text-crimsonRed">
+                  {formErrors.agreeToTerms}
+                </span>
+              )}
 
-            <button
-              className={`cursor-pointer transition-all bg-primaryBlue px-[32px] py-[16px] rounded-lg border-navyBlue border-b-[4px] hover:brightness-110  hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px] text-[white] font-bold md:w-[600px] flex flex-row gap-[16px] justify-center items-center ${
-                formFieldsHasError ? "!bg-crimsonRed !border-deepMaroon" : ""
-              } ${buttonClassName}`}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Enviando..." : "Enviar"}
-              <Image
-                aria-hidden={true}
-                className="w-[16px]"
-                src="/calendar-icon.svg"
-                alt="Calendario Icone"
-                width={0}
-                height={0}
-                unoptimized
-              />
-            </button>
-
-            {unexpectedError && (
-              <p
-                className="text-crimsonRed font-bold"
-                aria-live="assertive"
-                role="alert"
+              <button
+                className={`cursor-pointer transition-all bg-primaryBlue px-[32px] py-[16px] rounded-lg border-navyBlue border-b-[4px] hover:brightness-110  hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px] text-[white] font-bold md:w-[600px] flex flex-row gap-[16px] justify-center items-center ${
+                  formFieldsHasError ? "!bg-crimsonRed !border-deepMaroon" : ""
+                } ${buttonClassName}`}
+                disabled={isSubmitting}
               >
-                Um erro inesperado occoreu com o Provedor de Email, por favor,
-                contate-me em: [carloshenrique.webdev@gmail.com], para eu poder
-                resolver esse problema.
-              </p>
-            )}
+                {isSubmitting ? "Enviando..." : "Enviar"}
+                <Image
+                  aria-hidden={true}
+                  className="w-[16px]"
+                  src="/calendar-icon.svg"
+                  alt="Calendario Icone"
+                  width={0}
+                  height={0}
+                  unoptimized
+                />
+              </button>
 
-            <div aria-live="assertive" role="alert">
-              {formFieldsHasError && (
-                <p className="visually-hidden">
-                  Houve um erro ao enviar o formulário. Por favor, corrija os
-                  seguintes campos e tente novamente:{" "}
-                  {formErrors.FirstName && `${formErrors.FirstName},`}
-                  {formErrors.LastName && ` ${formErrors.LastName},`}
-                  {formErrors.PhoneNumber && ` ${formErrors.PhoneNumber},`}
-                  {formErrors.Email && ` ${formErrors.Email},`}
-                  {formErrors.Location && ` ${formErrors.Location},`}
-                  {formErrors.ReturningCustomer &&
-                    ` ${formErrors.ReturningCustomer},`}
-                  {formErrors.EmergencyName && ` ${formErrors.EmergencyName},`}
-                  {formErrors.EmergencyPhoneNumber &&
-                    ` ${formErrors.EmergencyPhoneNumber},`}
-                  {formErrors.agreeToTerms && ` ${formErrors.agreeToTerms},`}
-                  {formErrors.numberOfDogs && ` ${formErrors.numberOfDogs},`}
-                  {formErrors.DogsInformation &&
-                    formErrors.DogsInformation.map((dogErrors, index) => (
-                      <span key={index}>
-                        {`, ${dogErrors.DogName}`}
-                        {dogErrors.Breed && `, ${dogErrors.Breed}`}
-                        {dogErrors.Age && `, ${dogErrors.Age}`}
-                        {dogErrors.SpreyedNeutered &&
-                          `, ${dogErrors.SpreyedNeutered}`}
-                        {dogErrors.VaccinationStatus &&
-                          `, ${dogErrors.VaccinationStatus}`}
-                      </span>
-                    ))}
+              {unexpectedError && (
+                <p
+                  className="text-crimsonRed font-bold"
+                  aria-live="assertive"
+                  role="alert"
+                >
+                  Um erro inesperado occoreu com o Provedor de Email, por favor,
+                  contate-me em: [carloshenrique.webdev@gmail.com], para eu
+                  poder resolver esse problema.
                 </p>
               )}
+
+              <div aria-live="assertive" role="alert">
+                {formFieldsHasError && (
+                  <p className="visually-hidden">
+                    Houve um erro ao enviar o formulário. Por favor, corrija os
+                    seguintes campos e tente novamente:{" "}
+                    {formErrors.FirstName && `${formErrors.FirstName},`}
+                    {formErrors.LastName && ` ${formErrors.LastName},`}
+                    {formErrors.PhoneNumber && ` ${formErrors.PhoneNumber},`}
+                    {formErrors.Email && ` ${formErrors.Email},`}
+                    {formErrors.Location && ` ${formErrors.Location},`}
+                    {formErrors.ReturningCustomer &&
+                      ` ${formErrors.ReturningCustomer},`}
+                    {formErrors.EmergencyName &&
+                      ` ${formErrors.EmergencyName},`}
+                    {formErrors.EmergencyPhoneNumber &&
+                      ` ${formErrors.EmergencyPhoneNumber},`}
+                    {formErrors.agreeToTerms && ` ${formErrors.agreeToTerms},`}
+                    {formErrors.numberOfDogs && ` ${formErrors.numberOfDogs},`}
+                    {formErrors.DogsInformation &&
+                      formErrors.DogsInformation.map((dogErrors, index) => (
+                        <span key={index}>
+                          {`, ${dogErrors.DogName}`}
+                          {dogErrors.Breed && `, ${dogErrors.Breed}`}
+                          {dogErrors.Age && `, ${dogErrors.Age}`}
+                          {dogErrors.SpreyedNeutered &&
+                            `, ${dogErrors.SpreyedNeutered}`}
+                          {dogErrors.VaccinationStatus &&
+                            `, ${dogErrors.VaccinationStatus}`}
+                        </span>
+                      ))}
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </form>

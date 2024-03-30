@@ -1,28 +1,48 @@
-import HeroSection from "@/components/common/HeroSection/HeroSection";
-import useDataFetching from "@/hooks/useDataFetching";
 import React from "react";
+import { gql } from "@apollo/client";
+import useStrapiData from "@/hooks/useStrapiData";
+import HeroSection from "@/components/common/HeroSection/HeroSection";
+
+const GET_SERVICES_HERO_DATA = gql`
+  query GetServicesHeroData {
+    servicesPage {
+      data {
+        attributes {
+          HeroBaseUtils {
+            BackgroundImage {
+              data {
+                attributes {
+                  url
+                }
+              }
+            }
+            BackgroundPosition
+            BackgroundOverlay
+            HeroText {
+              Title
+              Description
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 const ServicesHero = () => {
-  const urlToFetch =
-    "https://not-cool.onrender.com/api/services-page?populate[HeroBaseUtils][populate]=*";
-  const { completeDataJSON: contentData } = useDataFetching(urlToFetch);
+  const { data } = useStrapiData(GET_SERVICES_HERO_DATA);
+  const heroData = data?.servicesPage?.data?.attributes?.HeroBaseUtils;
 
   return (
     <>
-      {contentData.data ? (
+      {heroData ? (
         <HeroSection
           extraClassName="after:!bg-none"
-          backgroundImage={`https://not-cool.onrender.com${contentData.data.attributes.HeroBaseUtils.BackgroundImage.data.attributes.url}`}
-          backgroundPosition={
-            contentData.data.attributes.HeroBaseUtils.BackgroundPosition
-          }
-          backgroundOverlay={
-            contentData.data.attributes.HeroBaseUtils.BackgroundOverlay
-          }
-          title={contentData.data.attributes.HeroBaseUtils.HeroText.Title}
-          description={
-            contentData.data.attributes.HeroBaseUtils.HeroText.Description
-          }
+          backgroundImage={`${heroData.BackgroundImage.data.attributes.url}`}
+          backgroundPosition={heroData.BackgroundPosition}
+          backgroundOverlay={heroData.BackgroundOverlay}
+          title={heroData.HeroText.Title}
+          description={heroData.HeroText.Description}
         />
       ) : (
         <div aria-hidden="true" className="relative">
@@ -38,7 +58,6 @@ const ServicesHero = () => {
               <h1 className="text-[1.125rem] md:text-[1.25rem] lg:text-[1.5rem] text-skeletonLoading">
                 Lorem ipsum
               </h1>
-
               <p className="hidden lg:block text-[1rem] text-skeletonLoading">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                 Sapiente tempore perferendis consectetur unde ad velit nisi

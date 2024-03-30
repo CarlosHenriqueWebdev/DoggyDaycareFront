@@ -1,38 +1,57 @@
-// pages/index.js
+import React from "react";
+import { gql } from "@apollo/client";
+import useStrapiData from "@/hooks/useStrapiData";
 import Button from "@/components/utils/Button";
-import useDataFetching from "@/hooks/useDataFetching";
+import { API_BASE_URL } from "../../../../../lib/config";
+
+const GET_HIRING_SECTION_DATA = gql`
+  query GetHiringSectionData {
+    contentMedia {
+      data {
+        attributes {
+          JoinUs {
+            BackgroundImage {
+              data {
+                attributes {
+                  url
+                }
+              }
+            }
+            GlassOverlayTransparency
+            Title
+            Description
+          }
+        }
+      }
+    }
+  }
+`;
 
 const HiringSection = () => {
-  const urlToFetch =
-    "https://not-cool.onrender.com/api/content-media?populate[JoinUs][populate]=*";
-  const { completeDataJSON: contentData } = useDataFetching(urlToFetch);
+  const { data } = useStrapiData(GET_HIRING_SECTION_DATA);
+  const joinUsData = data?.contentMedia?.data?.attributes?.JoinUs;
 
   return (
     <div>
-      {/* Content */}
-      {contentData.data ? (
+      {joinUsData ? (
         <div
           style={{
-            backgroundImage: `url(https://not-cool.onrender.com${contentData.data.attributes.JoinUs.BackgroundImage.data.attributes.url})`,
+            backgroundImage: `url(${API_BASE_URL + joinUsData.BackgroundImage.data.attributes.url})`,
           }}
           className="bg-cover bg-center relative bg-fixed"
         >
           <div
             style={{
-              backgroundColor: `rgba(0, 0, 0, 0.${contentData.data.attributes.JoinUs.GlassOverlayTransparency})`,
+              backgroundColor: `rgba(0, 0, 0, 0.${joinUsData.GlassOverlayTransparency})`,
             }}
-            className="px-[24px] lg:px-[48px] mt-[72px] flex flex-col gap-2 py-[12%] w-[100%] h-[100%] sm:py-[8%] border-solid border-skyBlue border-t-[6px]"
+            className="px-[24px] lg:px-[48px] mt-[72px] flex flex-col gap-2 py-[72px] w-[100%] h-[100%] border-solid border-skyBlue border-t-[6px]"
           >
             <div className="flex flex-col gap-3 text-center sm:gap-[20px]">
-              <h2 className="text-[1.5rem]  text-skyBlue font-bold">
-                {contentData.data.attributes.JoinUs.Title}
+              <h2 className="text-[1.25rem] sm:text-[1.5rem] text-skyBlue font-bold">
+                {joinUsData.Title}
               </h2>
-
               <p className="text-[white] font-semibold max-w-[600px] mx-auto ">
-                {
-                  contentData.data.attributes.JoinUs.Description[0].children[0]
-                    .text
-                }
+                {joinUsData.Description[0].children[0].text}
               </p>
             </div>
 

@@ -1,10 +1,11 @@
 import useDataFetching from "@/hooks/useDataFetching";
 import Image from "next/image";
 import React, { useState } from "react";
+import { API_BASE_URL } from "../../../../../lib/config";
 
 const MeetOurTeam = () => {
   const urlToFetch =
-    "https://not-cool.onrender.com/api/about-page?populate[YourTeam][populate][WorkerInformation][populate]=*";
+  API_BASE_URL + "/api/about-page?populate[YourTeam][populate][WorkerInformation][populate]=*";
   const { completeDataJSON: teamData } = useDataFetching(urlToFetch);
 
   const [clickedItem, setClickedItem] = useState(null);
@@ -33,7 +34,7 @@ const MeetOurTeam = () => {
                 >
                   <Image
                     className="object-cover block w-[300px] h-[300px] sm:w-full"
-                    src={`https://not-cool.onrender.com${mapItem.WorkerImage.data.attributes.formats.small.url}`}
+                    src={`${API_BASE_URL + mapItem.WorkerImage.data.attributes.formats.small.url}`}
                     alt={`Trabalhador da Creche Illustração ${itemIndex}`}
                     width={300}
                     height={300}

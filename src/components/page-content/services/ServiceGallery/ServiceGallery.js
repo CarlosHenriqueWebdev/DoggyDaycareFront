@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import { API_BASE_URL } from "../../../../../lib/config";
 
 const ServiceGallery = ({ contentData01, handleImageClick }) => {
   const animationSpeed = "40s";
@@ -8,7 +9,7 @@ const ServiceGallery = ({ contentData01, handleImageClick }) => {
     <>
       {contentData01.data && (
         <>
-          {contentData01.data?.map((mapItem, itemIndex) => (
+          {contentData01.data?.map((mapItem) => (
             <div className="mb-[72px]" key={mapItem.id}>
               <div className="overflow-hidden bg-midnightBlack py-[72px] border-y-[6px] border-solid border-skyBlue">
                 <style jsx>{`
@@ -46,7 +47,7 @@ const ServiceGallery = ({ contentData01, handleImageClick }) => {
                             <Image
                               aria-hidden={true}
                               className="cursor-zoom-in hover:scale-[1.2] transition-all w-full h-full object-cover"
-                              src={`https://not-cool.onrender.com${mapItem.attributes.formats.small.url}`}
+                              src={`${API_BASE_URL + mapItem.attributes.formats.small.url}`}
                               alt={`Illustração: ${itemIndex}`}
                               height="0"
                               width="0"

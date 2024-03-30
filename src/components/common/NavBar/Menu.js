@@ -1,5 +1,5 @@
 // Menu.js
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import NewSharedData from "@/components/utils/NewSharedData";

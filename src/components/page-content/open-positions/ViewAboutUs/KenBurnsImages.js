@@ -1,15 +1,13 @@
 // KenBurnsSlideshow.js
 
 import useDataFetching from "@/hooks/useDataFetching";
-import Image from "next/image";
 import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
-
-// ... (imports and other code)
+import { API_BASE_URL } from "../../../../../lib/config";
 
 const KenBurnsSlideshow = () => {
   const urlToFetch =
-    "https://not-cool.onrender.com/api/open-positions-page?populate[SeeAboutUs][populate]=*";
+  API_BASE_URL + "/api/open-positions-page?populate[SeeAboutUs][populate]=*";
   const { completeDataJSON: contentData } = useDataFetching(urlToFetch);
 
   // Use the fetched image URLs if available
@@ -17,7 +15,7 @@ const KenBurnsSlideshow = () => {
     contentData.data &&
     contentData.data.attributes.SeeAboutUs.ImageKenBurns.data &&
     contentData.data.attributes.SeeAboutUs.ImageKenBurns.data.map(
-      (mapItem) => `https://not-cool.onrender.com${mapItem.attributes.url}`
+      (mapItem) => `${API_BASE_URL + mapItem.attributes.url}`
     );
 
   const getRandomDirection = () => {

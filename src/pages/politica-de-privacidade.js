@@ -6,14 +6,15 @@ import useCheckFetch from "@/hooks/useCheckFetch";
 import useDataFetching from "@/hooks/useDataFetching";
 import Head from "next/head";
 import React from "react";
+import { API_BASE_URL } from "../../lib/config";
 
 const PrivacyPolicy = () => {
   const urlToFetch =
-    "https://not-cool.onrender.com/api/terms-and-privacy-policy?populate[PrivacyPolicy][populate]=*";
+    API_BASE_URL + "/api/terms-and-privacy-policy?populate[PrivacyPolicy][populate]=*";
   const { completeDataJSON: contentData } = useDataFetching(urlToFetch);
 
   const apiUrl =
-    "https://not-cool.onrender.com/api/terms-and-privacy-policy?populate[PrivacyPolicy][populate]=*";
+    API_BASE_URL + "/api/terms-and-privacy-policy?populate[PrivacyPolicy][populate]=*";
   const { loading, error } = useCheckFetch(apiUrl);
 
   if (loading) {

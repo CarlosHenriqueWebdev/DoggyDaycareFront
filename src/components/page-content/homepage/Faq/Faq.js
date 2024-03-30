@@ -1,12 +1,34 @@
 import React, { useState } from "react";
-import useDataFetching from "@/hooks/useDataFetching";
+import { gql } from "@apollo/client";
+import useStrapiData from "@/hooks/useStrapiData";
 import Image from "next/image";
 import Link from "next/link";
 
+const GET_FAQ_DATA = gql`
+  query GetFaqData {
+    contentMedia {
+      data {
+        attributes {
+          FrequentlyAskedQuestions {
+            SectionTitle
+            QuestionsAndAnswers {
+              id
+              Question
+              Answer
+            }
+            ContactUsText
+            ContactUsLinkOutlinedText
+          }
+        }
+      }
+    }
+  }
+`;
+
 const Faq = () => {
-  const urlToFetch =
-    "https://not-cool.onrender.com/api/content-media?populate[FrequentlyAskedQuestions][populate][QuestionsAndAnswers][populate]=*";
-  const { completeDataJSON: contentData } = useDataFetching(urlToFetch);
+  const { data } = useStrapiData(GET_FAQ_DATA);
+  const faqData =
+    data?.contentMedia?.data?.attributes?.FrequentlyAskedQuestions;
 
   // State to manage visibility of all answers
   const [openQuestions, setOpenQuestions] = useState([]);
@@ -20,18 +42,18 @@ const Faq = () => {
   };
 
   return (
-    <>
-      {contentData.data ? (
-        <div className="px-[24px] lg:px-[48px] mt-[72px] mb-[72px] flex flex-col gap-4">
-          <h2 className="text-primaryBlue font-bold text-[1.75rem]">
-            {contentData.data.attributes.FrequentlyAskedQuestions.SectionTitle}
-          </h2>
+    <div className="px-[24px] lg:px-[48px] mt-[72px] mb-[72px]">
+      <div className="max-container">
+        {faqData ? (
+          <div className="flex flex-col gap-4">
+            <h2 className="text-primaryBlue font-bold text-[1.25rem] sm:text-[1.5rem]">
+              {faqData.SectionTitle}
+            </h2>
 
-          <hr aria-hidden="true" className="border-black25" />
+            <hr aria-hidden="true" className="border-black25" />
 
-          <ul className="flex flex-col gap-2">
-            {contentData.data.attributes.FrequentlyAskedQuestions.QuestionsAndAnswers.map(
-              (mapItem) => (
+            <ul className="flex flex-col gap-2">
+              {faqData.QuestionsAndAnswers.map((mapItem) => (
                 <li key={mapItem.id}>
                   <button
                     aria-expanded={openQuestions.includes(mapItem.id)}
@@ -76,64 +98,54 @@ const Faq = () => {
                     </p>
                   </div>
                 </li>
-              )
-            )}
-          </ul>
+              ))}
+            </ul>
 
-          <hr aria-hidden="true" className="border-black25" />
+            <hr aria-hidden="true" className="border-black25" />
 
-          <div className="font-bold ">
-            <p className="flex gap-[4px]">
-              {
-                contentData.data.attributes.FrequentlyAskedQuestions
-                  .ContactUsText
-              }
-              {"  "}
+            <div className="font-bold ">
+              <p className="flex gap-[4px] flex-col md:flex-row">
+                {faqData.ContactUsText}
+                {"  "}
+                <Link
+                  className="text-primaryBlue hover:underline"
+                  href="/contato"
+                >
+                  {faqData.ContactUsLinkOutlinedText}
+                </Link>
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div aria-hidden="true" className="flex flex-col gap-4">
+            <h2 className="w-fit text-skeletonLoading bg-skeletonLoading rounded-[12px] text-[1.75rem]">
+              Lorem ipsum dolor sit amet consectetur
+            </h2>
 
-              <Link
-                className="text-primaryBlue hover:underline"
-                href="/contato"
-              >
-                {
-                  contentData.data.attributes.FrequentlyAskedQuestions
-                    .ContactUsLinkOutlinedText
-                }
-              </Link>
+            <hr aria-hidden="true" className="border-skeletonLoading" />
+
+            <ul className="flex flex-col gap-2">
+              {Array.from({ length: 3 }, (_, itemIndex) => (
+                <li key={itemIndex}>
+                  <div
+                    className={`text-skeletonLoading bg-skeletonLoading rounded-[12px] w-full text-left pl-[16px] pr-[16px] pt-[12px] pb-[12px] flex flex-row gap-3 items-center `}
+                  >
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            <hr aria-hidden="true" className="border-black25" />
+
+            <p className="w-fit text-skeletonLoading bg-skeletonLoading rounded-[12px] ">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem
+              necessitatibus aut accusantium totam quibusdam ut provident sed.
             </p>
           </div>
-        </div>
-      ) : (
-        <div
-          aria-hidden="true"
-          className="px-[24px] lg:px-[48px] mt-[72px] mb-[72px] flex flex-col gap-4"
-        >
-          <h2 className="w-fit text-skeletonLoading bg-skeletonLoading rounded-[12px] text-[1.75rem]">
-            Lorem ipsum dolor sit amet consectetur
-          </h2>
-
-          <hr aria-hidden="true" className="border-skeletonLoading" />
-
-          <ul className="flex flex-col gap-2">
-            {Array.from({ length: 3 }, (_, itemIndex) => (
-              <li key={itemIndex}>
-                <div
-                  className={`text-skeletonLoading bg-skeletonLoading rounded-[12px] w-full text-left pl-[16px] pr-[16px] pt-[12px] pb-[12px] flex flex-row gap-3 items-center `}
-                >
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          <hr aria-hidden="true" className="border-black25" />
-
-          <p className="w-fit text-skeletonLoading bg-skeletonLoading rounded-[12px] ">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem
-            necessitatibus aut accusantium totam quibusdam ut provident sed.
-          </p>
-        </div>
-      )}
-    </>
+        )}
+      </div>
+    </div>
   );
 };
 

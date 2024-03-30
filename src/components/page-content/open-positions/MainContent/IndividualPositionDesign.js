@@ -3,24 +3,24 @@ import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/utils/Button";
 import { useRouter } from "next/router";
-import useDataFetching from "@/hooks/useDataFetching";
 import useDataFetchSlug from "@/hooks/useDataFetchSlug";
+import { API_BASE_URL } from "../../../../../lib/config";
 
 const IndividualPositionDesign = () => {
   const router = useRouter();
   const { slug } = router.query;
 
   const [loading, setLoading] = useState(true);
-  const [contentData, setVideoData] = useState(null);
+  const [contentData, setContentData] = useState(null);
   const [socialIconsData, setSocialIconsData] = useState(null);
 
-  const urlToFetch01 = `https://not-cool.onrender.com/api/open-positions?filters[slug]=${slug}&populate[ContentTextRepeatable][populate]=*`;
+  const urlToFetch01 = `${API_BASE_URL}/api/open-positions?filters[slug]=${slug}&populate[ContentTextRepeatable][populate]=*`;
   const { completeDataJSON: completeDataJSON01 } = useDataFetchSlug(
     urlToFetch01,
     { slug }
   );
 
-  const urlToFetch02 = `https://not-cool.onrender.com/api/open-positions?filters[slug]=${slug}&populate[ShareOnSocialNetworkOptional][populate]=*`;
+  const urlToFetch02 = `${API_BASE_URL}/api/open-positions?filters[slug]=${slug}&populate[ShareOnSocialNetworkOptional][populate]=*`;
   const { completeDataJSON: completeDataJSON02 } = useDataFetchSlug(
     urlToFetch02,
     { slug }
@@ -33,7 +33,7 @@ const IndividualPositionDesign = () => {
         return;
       }
 
-      setVideoData(completeDataJSON01);
+      setContentData(completeDataJSON01);
       setSocialIconsData(completeDataJSON02);
       setLoading(false);
     };
@@ -61,10 +61,10 @@ const IndividualPositionDesign = () => {
       socialIconsData &&
       socialIconsData.data &&
       !loading ? (
-        <>
-          {contentData.data?.map((mapItem, itemIndex) => (
+        <div className="px-[24px] lg:px-[48px] mt-[72px] pb-[72px] bg-[url(/curvy-background.svg)] bg-repeat">
+          {contentData.data?.map((mapItem) => (
             <div
-              className="px-[24px] lg:px-[48px] mt-[72px] pb-[72px] bg-[url(/curvy-background.svg)] bg-repeat flex flex-col gap-[62px]"
+              className="max-container flex flex-col gap-[62px]"
               key={mapItem.id}
             >
               <div className="flex flex-col gap-[32px]">
@@ -87,7 +87,7 @@ const IndividualPositionDesign = () => {
 
                   <div className="flex flex-col gap-[12px]">
                     <div>
-                      <h1 className="text-crimsonRed text-[1.75rem] font-bold">
+                      <h1 className="text-crimsonRed text-[1.5rem] sm:text-[1.75rem] font-bold">
                         {mapItem.attributes.JobTitle}{" "}
                         {mapItem.attributes.TitleAddonText}
                       </h1>
@@ -143,7 +143,7 @@ const IndividualPositionDesign = () => {
                               >
                                 <Image
                                   className="w-full h-[20px]"
-                                  src={`https://not-cool.onrender.com${mapItem.Icon.data.attributes.url}`}
+                                  src={`${API_BASE_URL}${mapItem.Icon.data.attributes.url}`}
                                   alt={
                                     mapItem.ImageAlternativeTextForAccesibility
                                   }
@@ -183,7 +183,7 @@ const IndividualPositionDesign = () => {
                           className="flex flex-col gap-[12px]"
                           key={contentItem.id}
                         >
-                          <h2 className="text-skyBlue text-[1.5rem] font-bold">
+                          <h2 className="text-skyBlue text-[1.25rem] sm:text-[1.5rem] font-bold">
                             {contentItem.Title}
                           </h2>
 
@@ -212,14 +212,14 @@ const IndividualPositionDesign = () => {
               </div>
             </div>
           ))}
-        </>
+        </div>
       ) : (
         <>
           <div
             aria-hidden="true"
             className="px-[24px] lg:px-[48px] mt-[72px] pb-[72px]   flex flex-col gap-[62px]"
           >
-            <div className="flex flex-col gap-[32px]">
+            <div className="max-container flex flex-col gap-[32px]">
               <div className="flex flex-col gap-[16px]">
                 <div className="bg-skeletonLoading text-skeletonLoading w-fit">
                   Lorem ipsum dolor sit

@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
-import VideoHero from "@/components/page-content/homepage/VideoHero/VideoHero";
+import HomeHero from "@/components/page-content/homepage/HomeHero/HomeHero";
 import SiteFeatures from "@/components/page-content/homepage/SiteFeatures/SiteFeatures";
 import NumberCounter from "@/components/page-content/homepage/NumberCounter/NumberCounter";
 import LongText from "@/components/page-content/homepage/LongText/LongText";
@@ -19,6 +19,7 @@ import LazyLoadComponent from "@/components/common/LazyLoadComponent/LazyLoadCom
 import useCheckFetch from "@/hooks/useCheckFetch";
 import useDataFetching from "@/hooks/useDataFetching";
 import ImageCarousel from "@/components/utils/ImageCarousel";
+import { API_BASE_URL } from "../../lib/config";
 
 const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(null);
@@ -32,27 +33,36 @@ const Home = () => {
   };
 
   const urlToFetchImage01 =
-    "https://not-cool.onrender.com/api/content-media?populate[LongTextDescription][populate][ThirdTextGroup][populate]=*";
+    API_BASE_URL +
+    "/api/content-media?populate[LongTextDescription][populate][ThirdTextGroup][populate]=*";
   const { completeDataJSON: contentData01 } =
     useDataFetching(urlToFetchImage01);
 
-  const urlToFetchImage02 = `https://not-cool.onrender.com/api/services-collections?populate=*`;
+  const urlToFetchImage02 =
+    API_BASE_URL + "/api/services-collections?populate=*";
   const { completeDataJSON: contentData02 } =
     useDataFetching(urlToFetchImage02);
 
   const urlToFetchImage03 =
-    "https://not-cool.onrender.com/api/content-media?populate[Testimonials][populate]=*";
+    API_BASE_URL + "/api/content-media?populate[Testimonials][populate]=*";
   const { completeDataJSON: contentData03 } =
     useDataFetching(urlToFetchImage03);
 
   const generateImagePaths = () => {
-    const longTextImagePath = `https://not-cool.onrender.com${contentData01.data.attributes.LongTextDescription.ThirdTextGroup.IllustrationImage.data.attributes.formats.small.url}`;
+    const longTextImagePath =
+      API_BASE_URL +
+      `${contentData01.data.attributes.LongTextDescription.ThirdTextGroup.IllustrationImage.data.attributes.formats.small.url}`;
 
-    const testimonialsImagePath = `https://not-cool.onrender.com${contentData03.data.attributes.Testimonials.Image.data.attributes.formats.small.url}`;
+    const testimonialsImagePath =
+      API_BASE_URL +
+      `${contentData03.data.attributes.Testimonials.Image.data.attributes.formats.small.url}`;
 
     // Replace this with the actual logic to extract image paths from contentData02.data
     const serviceImagePaths = contentData02.data.map((mapItem) => {
-      return `https://not-cool.onrender.com${mapItem.attributes.Image.data.attributes.formats.small.url}`;
+      return (
+        API_BASE_URL +
+        `${mapItem.attributes.Image.data.attributes.formats.small.url}`
+      );
     });
 
     // Combine serviceImagePaths with other paths as needed
@@ -65,7 +75,7 @@ const Home = () => {
     return allImagePaths;
   };
 
-  const apiUrl = "https://not-cool.onrender.com/api/content-media?populate=*";
+  const apiUrl = API_BASE_URL + "/api/content-media?populate=*";
   const { loading, error } = useCheckFetch(apiUrl);
 
   if (loading) {
@@ -98,7 +108,7 @@ const Home = () => {
       )}
 
       <div className="overflow-hidden">
-        <LazyLoadComponent lazyComponent={<VideoHero />} />
+        <LazyLoadComponent lazyComponent={<HomeHero />} />
         <LazyLoadComponent lazyComponent={<SiteFeatures />} />
         <LazyLoadComponent lazyComponent={<NumberCounter />} />
         <LazyLoadComponent

@@ -1,33 +1,44 @@
+import React from "react";
+import { gql } from "@apollo/client";
+import useStrapiData from "@/hooks/useStrapiData";
 import Button from "@/components/utils/Button";
-import useDataFetching from "@/hooks/useDataFetching";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+
+const GET_CALL_TO_ACTION_CONTACT = gql`
+  query GetCallToActionContact {
+    openPositionsPage {
+      data {
+        attributes {
+          CallToActionContact {
+            Title
+            Description
+          }
+        }
+      }
+    }
+  }
+`;
 
 const CallToActionContact = ({ extraClassName }) => {
-  const urlToFetch =
-    "https://not-cool.onrender.com/api/open-positions-page?populate[CallToActionContact][populate]=*";
-  const { completeDataJSON: contentData } = useDataFetching(urlToFetch);
+  const { data } = useStrapiData(GET_CALL_TO_ACTION_CONTACT);
+
+  const ctaData = data?.openPositionsPage?.data?.attributes?.CallToActionContact;
 
   return (
     <>
-      {contentData.data ? (
+      {ctaData ? (
         <>
           <div
-            className={`bg-[url('/pattern-black.png')] text-[black] flex flex-col py-[8%] gap-9 px-[24px] md:py-[4%] lg:px-[48px] border-solid border-[black] border-t-[4px] ${extraClassName}`}
+            className={`bg-[url('/pattern-black.png')] text-[black] flex flex-col py-[72px] gap-9 px-[24px] lg:px-[48px] border-solid border-[black] border-t-[4px] ${extraClassName}`}
           >
-            <div className="flex flex-col gap-4 xl:gap-5">
-              <h2 className="font-bold text-[1.75rem]">
-                {contentData.data.attributes.CallToActionContact.Title}
+            <div className="max-container w-full flex flex-col gap-4 xl:gap-5">
+              <h2 className="font-bold text-[1.5rem] sm:text-[1.75rem]">
+                {ctaData.Title}
               </h2>
 
               <p
                 className={`font-bold sm:max-w-[600px] md:w-[600px] ${extraClassName}`}
               >
-                {
-                  contentData.data.attributes.CallToActionContact.Description[0]
-                    .children[0].text
-                }
+                {ctaData.Description[0].children[0].text}
               </p>
 
               <Button

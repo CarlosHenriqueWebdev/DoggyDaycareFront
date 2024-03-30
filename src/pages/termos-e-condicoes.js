@@ -6,14 +6,15 @@ import useDataFetching from "@/hooks/useDataFetching";
 import LoadingScreen from "@/components/common/LoadingScreen/LoadingScreen";
 import ServerDown from "@/components/common/ServerDown/ServerDown";
 import useCheckFetch from "@/hooks/useCheckFetch";
+import { API_BASE_URL } from "../../lib/config";
 
 const TermsAndConditions = () => {
   const urlToFetch =
-    "https://not-cool.onrender.com/api/terms-and-privacy-policy?populate[TermsAndConditions][populate]=*";
+    API_BASE_URL + "/api/terms-and-privacy-policy?populate[TermsAndConditions][populate]=*";
   const { completeDataJSON: contentData } = useDataFetching(urlToFetch);
 
   const apiUrl =
-    "https://not-cool.onrender.com/api/terms-and-privacy-policy?populate[TermsAndConditions][populate]=*";
+    API_BASE_URL + "/api/terms-and-privacy-policy?populate[TermsAndConditions][populate]=*";
   const { loading, error } = useCheckFetch(apiUrl);
 
   if (loading) {
@@ -24,7 +25,7 @@ const TermsAndConditions = () => {
     return <ServerDown />;
   }
 
-  http: return (
+  return (
     <div>
       <Head>
         <title>Termos e Condições | Creche para Cães</title>

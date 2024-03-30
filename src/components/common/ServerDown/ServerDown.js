@@ -28,15 +28,15 @@ const ServerDown = () => {
           <p className="font-bold text-[black]">
             Se você está vendo esta mensagem, peço desculpas pelo transtorno.
             Por favor, entre em contato comigo pelo e-mail:{" "}
-            <a className="underline text-primaryBlue" href="mailto:null">
-              null
+            <a className="underline text-primaryBlue" href="mailto:carloshenrique.webdev@gmail.com">
+              carloshenrique.webdev@gmail.com
             </a>{" "}
             para que eu possa resolver este problema rapidinho. Agradeço a sua
             paciência e colaboração. Até logo!
           </p>
 
           <a
-            className={`text-[0.5rem] hover:underline sm:text-[0.75rem]  text-black75`}
+            className="text-[0.5rem] hover:underline sm:text-[0.75rem]  text-black75"
             href="https://icons8.com.br/illustrations/illustration/3d-casual-life-lego-bricks-2"
             target="_blank"
             rel="noopener noreferrer"

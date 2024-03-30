@@ -1,25 +1,56 @@
-// pages/index.js
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import YouTube from "react-youtube";
 import Image from "next/image";
-import useDataFetching from "@/hooks/useDataFetching";
+import useStrapiData from "@/hooks/useStrapiData";
+import { API_BASE_URL } from "../../../../../lib/config";
+import { gql } from "@apollo/client";
+
+const GET_WORKERS_TESTIMONIALS = gql`
+  query GetWorkersTestimonials {
+    openPositionsPage {
+      data {
+        attributes {
+          WokersTestimonials {
+            BackgroundImage {
+              data {
+                attributes {
+                  formats
+                }
+              }
+            }
+            BackgroundPosition
+            YoutubeVideoID
+          }
+        }
+      }
+    }
+  }
+`;
 
 const WorkersTestimonials = () => {
-  const urlToFetch01 =
-    "https://not-cool.onrender.com/api/open-positions-page?populate[WokersTestimonials][populate][VideoFormat][populate]=*";
-  const { completeDataJSON: contentData01 } = useDataFetching(urlToFetch01);
-
-  const urlToFetch02 =
-    "https://not-cool.onrender.com/api/open-positions-page?populate[WokersTestimonials][populate]=*";
-  const { completeDataJSON: contentData02 } = useDataFetching(urlToFetch02);
+  const { data } = useStrapiData(GET_WORKERS_TESTIMONIALS);
+  const testimonialsData =
+    data?.openPositionsPage?.data?.attributes?.WokersTestimonials;
 
   const [player, setPlayer] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [adBlockerDetected, setAdBlockerDetected] = useState(false);
+
+  useEffect(() => {
+    if (!player) return;
+
+    const checkAdBlocker = () => {
+      if (player.getPlayerState() === -1) {
+        setAdBlockerDetected(true);
+      }
+    };
+
+    const interval = setInterval(checkAdBlocker, 1000);
+    return () => clearInterval(interval);
+  }, [player]);
 
   const onReady = (event) => {
-    // event.target is the YouTube player
     setPlayer(event.target);
   };
 
@@ -29,7 +60,6 @@ const WorkersTestimonials = () => {
 
       if (playerState !== window.YT.PlayerState.PLAYING) {
         player.playVideo();
-
         setIsPlaying(true);
       }
     }
@@ -45,12 +75,16 @@ const WorkersTestimonials = () => {
           }
         `}</style>
       </Head>
-      {contentData01.data && contentData02.data ? (
+      {testimonialsData ? (
         <div className="mt-[72px]">
           <div
             style={{
-              backgroundImage: `url(https://not-cool.onrender.com${contentData02.data.attributes.WokersTestimonials.BackgroundImage.data.attributes.formats.small.url})`,
-              backgroundPosition: `${contentData02.data.attributes.WokersTestimonials.BackgroundPosition}`,
+              backgroundImage: `url(${
+                API_BASE_URL +
+                testimonialsData.BackgroundImage.data.attributes.formats.small
+                  .url
+              })`,
+              backgroundPosition: testimonialsData.BackgroundPosition,
             }}
             className={`bg-midnightBlack bg-no-repeat bg-cover border-solid border-[black] border-t-[4px] ${
               isPlaying ? "hidden" : "block"
@@ -63,7 +97,7 @@ const WorkersTestimonials = () => {
               className="flex flex-col gap-2 items-center justify-center w-[100%] h-[70vh]"
             >
               <button className="hover-effect01" onClick={playVideo}>
-                <h2 className="text-[white] text-center font-bold text-[1.75rem]">
+                <h2 className="text-[white] text-center font-bold text-[1.5rem] sm:text-[1.75rem]">
                   <span className="text-crimsonRed">Escute</span> dos nossos{" "}
                   <br aria-hidden="true" />{" "}
                   <span className="text-skyBlue">Trabalhadores</span>!
@@ -83,20 +117,24 @@ const WorkersTestimonials = () => {
           </div>
 
           <div
-            className={`video-container w-full  ${
+            className={`video-container w-full ${
               !isPlaying ? "!hidden" : "!block"
             }`}
           >
-            <YouTube
-              videoId={`${contentData01.data.attributes.WokersTestimonials.YoutubeVideoID}`}
-              opts={{
-                playerVars: {
-                  autoplay: 0,
-                  controls: 1,
-                },
-              }}
-              onReady={onReady}
-            />
+            {adBlockerDetected ? (
+              <p>Ad blocker detected. Please disable it to watch the video.</p>
+            ) : (
+              <YouTube
+                videoId={testimonialsData.YoutubeVideoID}
+                opts={{
+                  playerVars: {
+                    autoplay: 0,
+                    controls: 1,
+                  },
+                }}
+                onReady={onReady}
+              />
+            )}
           </div>
         </div>
       ) : (

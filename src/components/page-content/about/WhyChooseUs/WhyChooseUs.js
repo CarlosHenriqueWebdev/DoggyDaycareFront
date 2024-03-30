@@ -1,39 +1,55 @@
-import useDataFetching from "@/hooks/useDataFetching";
-import Image from "next/image";
 import React from "react";
+import { gql } from "@apollo/client";
+import useStrapiData from "@/hooks/useStrapiData";
+
+const GET_WHY_CHOOSE_US = gql`
+  query GetWhyChooseUs {
+    aboutPage {
+      data {
+        attributes {
+          WhyUs {
+            Title
+            RepeatableFields {
+              id
+              Title
+              Description
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 const WhyChooseUs = () => {
-  const urlToFetch =
-    "https://not-cool.onrender.com/api/about-page?populate[WhyUs][populate][RepeatableFields][populate]=*";
-  const { completeDataJSON: contentData } = useDataFetching(urlToFetch);
+  const { data } = useStrapiData(GET_WHY_CHOOSE_US);
+
+  const whyUsData = data?.aboutPage?.data?.attributes?.WhyUs;
 
   return (
-    <>
-      {contentData.data ? (
-        <div className="px-[24px] lg:px-[48px] mb-[72px]">
-          <h2 className="text-center text-primaryBlue font-bold text-[1.75rem] mb-[36px]">
-            {contentData.data.attributes.WhyUs.Title}
+    <div className="px-[24px] lg:px-[48px] mb-[72px]">
+      {whyUsData ? (
+        <div className="max-container">
+          <h2 className="text-primaryBlue font-bold text-[1.5rem]  sm:text-[1.75rem] mb-[36px]">
+            {whyUsData?.Title}
           </h2>
 
           <ul className="grid gap-[16px]">
-            {contentData.data.attributes.WhyUs.RepeatableFields.map(
-              (mapItem, itemIndex) => (
-                <li
-                  key={mapItem.id}
-                  className="gradient-blue-red p-[4px] break-inside-avoid rounded-[12px]"
-                >
-                  <div className="flex flex-col rounded-[12px] gap-2 md:gap-3 bg-[black] p-[24px] text-[white]">
-                    <h3 className="text-skyBlue text-[1.5rem] font-bold  w-full">
-                      {mapItem.Title}
-                    </h3>
-
-                    <p className="text-[white] ">
-                      {mapItem.Description[0].children[0].text}
-                    </p>
-                  </div>
-                </li>
-              )
-            )}
+            {whyUsData?.RepeatableFields?.map((mapItem) => (
+              <li
+                key={mapItem.id}
+                className="gradient-blue-red p-[4px] break-inside-avoid rounded-[12px]"
+              >
+                <div className="flex flex-col rounded-[12px] gap-2 md:gap-3 bg-[black] p-[24px] text-[white]">
+                  <h3 className="text-skyBlue text-[1.25rem] font-bold w-full">
+                    {mapItem.Title}
+                  </h3>
+                  <p className="text-[white] ">
+                    {mapItem.Description[0].children[0].text}
+                  </p>
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
       ) : (
@@ -63,7 +79,7 @@ const WhyChooseUs = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

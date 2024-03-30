@@ -6,9 +6,10 @@ import Contact from "@/components/page-content/contact/Contact";
 import useCheckFetch from "@/hooks/useCheckFetch";
 import Head from "next/head";
 import React from "react";
+import { API_BASE_URL } from "../../lib/config";
 
 const Contato = () => {
-  const apiUrl = "https://not-cool.onrender.com/api/locations-maps?populate=*";
+  const apiUrl = API_BASE_URL + "/api/locations-maps?populate=*";
   const { loading, error } = useCheckFetch(apiUrl);
 
   if (loading) {

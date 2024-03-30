@@ -3,9 +3,9 @@ import { gql } from "@apollo/client";
 import useStrapiData from "@/hooks/useStrapiData";
 import HeroSection from "@/components/common/HeroSection/HeroSection";
 
-const GET_POSITIONS_HERO = gql`
-  query GetPositionsHero {
-    openPositionsPage {
+const GET_VIDEO_HERO = gql`
+  query GetHomeHero {
+    contentMedia {
       data {
         attributes {
           HeroBaseUtils {
@@ -29,16 +29,17 @@ const GET_POSITIONS_HERO = gql`
   }
 `;
 
-const PositionsHero = () => {
-  const { data } = useStrapiData(GET_POSITIONS_HERO);
+const HomeHero = () => {
+  const { data } = useStrapiData(GET_VIDEO_HERO);
 
-  const heroData = data?.openPositionsPage?.data?.attributes?.HeroBaseUtils;
+  const heroData = data?.contentMedia?.data?.attributes?.HeroBaseUtils;
 
   return (
     <>
       {heroData ? (
         <HeroSection
-          backgroundImage={`${heroData.BackgroundImage.data.attributes.url}`}
+          extraClassName="after:!bg-none"
+          backgroundImage={heroData.BackgroundImage.data.attributes.url}
           backgroundPosition={heroData.BackgroundPosition}
           backgroundOverlay={heroData.BackgroundOverlay}
           title={heroData.HeroText.Title}
@@ -72,4 +73,4 @@ const PositionsHero = () => {
   );
 };
 
-export default PositionsHero;
+export default HomeHero;

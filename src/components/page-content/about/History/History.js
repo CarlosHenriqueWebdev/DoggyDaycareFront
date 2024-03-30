@@ -1,17 +1,45 @@
-import useDataFetching from "@/hooks/useDataFetching";
-import Image from "next/image";
 import React from "react";
+import { gql } from "@apollo/client";
+import useStrapiData from "@/hooks/useStrapiData";
+import Image from "next/image";
+import { API_BASE_URL } from "../../../../../lib/config";
+
+const GET_HISTORY = gql`
+  query GetHistory {
+    aboutPage {
+      data {
+        attributes {
+          YourHistory {
+            RepeatableFields {
+              id
+              Title
+              Description
+              Image {
+                data {
+                  attributes {
+                    formats
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 const History = ({ handleImageClick }) => {
-  const urlToFetch =
-    "https://not-cool.onrender.com/api/about-page?populate[YourHistory][populate][RepeatableFields][populate]=*";
-  const { completeDataJSON: contentData } = useDataFetching(urlToFetch);
+  const { data } = useStrapiData(GET_HISTORY);
+
+  const historyData =
+    data?.aboutPage?.data?.attributes?.YourHistory?.RepeatableFields;
 
   return (
     <div className="mb-[72px]">
       <Image
         aria-hidden={true}
-        className="w-full block scale-y-[1.02]"
+        className="w-full block scale-y-[1.1]"
         src="/wave.svg"
         alt="Onda"
         width="0"
@@ -20,13 +48,13 @@ const History = ({ handleImageClick }) => {
         priority={true}
       />
 
-      {contentData.data ? (
-        <div>
-          <h2 className="visually-hidden">História da Doggy Daycare</h2>
+      {historyData ? (
+        <div className="bg-midnightBlack px-[24px] lg:px-[48px]">
+          <div className="max-container">
+            <h2 className="visually-hidden">História da Doggy Daycare</h2>
 
-          <ul className="py-[12%] sm:py-[8%] md:py-[4%] grid gap-12 bg-midnightBlack text-[white] px-[24px] lg:px-[48px]">
-            {contentData.data.attributes.YourHistory.RepeatableFields.map(
-              (mapItem, itemIndex) => (
+            <ul className="py-[12%] sm:py-[8%] md:py-[4%] grid gap-12 text-[white]">
+              {historyData.map((mapItem, itemIndex) => (
                 <li
                   className={`grid gap-8 sm:max-w-[640px] sm:items-center sm:mx-auto sm:text-center lg:grid-cols-2 lg:text-start lg:!max-w-fit lg:mx-none`}
                   key={mapItem.id}
@@ -49,15 +77,17 @@ const History = ({ handleImageClick }) => {
                     </p>
                   </div>
 
-                  <div className="overflow-hidden">
+                  <div
+                    className={`overflow-hidden border-solid border-[4px] rounded-[12px] ${
+                      itemIndex % 2 === 0
+                        ? "border-crimsonRed"
+                        : "border-skyBlue"
+                    }`}
+                  >
                     <Image
                       aria-hidden={true}
-                      className={`border-solid border-[4px] block w-full h-full rounded-[12px] cursor-zoom-in hover:scale-[1.2] transition-all  ${
-                        itemIndex % 2 === 0
-                          ? "border-crimsonRed"
-                          : "border-skyBlue"
-                      }`}
-                      src={`https://not-cool.onrender.com${mapItem.Image.data.attributes.formats.medium.url}`}
+                      className={` block w-full h-full cursor-zoom-in hover:scale-[1.2] transition-all  `}
+                      src={`${API_BASE_URL + mapItem.Image.data.attributes.formats.medium.url}`}
                       alt={`Illustração ${itemIndex}`}
                       width="0"
                       height="0"
@@ -66,16 +96,16 @@ const History = ({ handleImageClick }) => {
                     />
                   </div>
                 </li>
-              )
-            )}
-          </ul>
+              ))}
+            </ul>
+          </div>
         </div>
       ) : (
         <div
           aria-hidden="true"
           className="px-[24px] lg:px-[48px] flex flex-col gap-4 md:gap-8 bg-midnightBlack py-[48px]"
         >
-          <div className=" flex flex-col gap-8 md:gap-12">
+          <div className=" flex flex-col gap-8 md:gap-12  max-container">
             {Array.from({ length: 3 }, (_, itemIndex) => (
               <div
                 className={`flex flex-col gap-8 md:grid md:gap-8 md:items-center ${

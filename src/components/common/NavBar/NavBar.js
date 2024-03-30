@@ -43,55 +43,67 @@ const NavBar = () => {
   return (
     <>
       <nav className="text-[white] z-[2000] top-0 sticky">
-        <div className="px-[24px] h-full py-[8px] lg:px-[48px] bg-[black] border-b-8 border-b-skyBlue border-solid w-full flex justify-between items-center">
-          <a href="#main-content" className="skip-to-content">
-            Pular para o Conteúdo Principal
-          </a>
+        <div className="px-[24px] h-full py-[8px] lg:px-[48px] bg-[black] border-b-8 border-b-skyBlue border-solid w-full">
+          <div className="max-container  w-full flex justify-between items-center">
+            <a href="#main-content" className="skip-to-content">
+              Pular para o Conteúdo Principal
+            </a>
 
-          <div className="w-fit h-fit relative after:bg-[url(/logo-arc.png)] after:z-20 after:content-[''] after:absolute after:w-[73px] after:h-[20px] after:bg-no-repeat after:bg-contain after:mt-[8px] after:right-[82px] after:block lg:after:mt-[11px]">
-            <Link className="block" href={"/"}>
-              <Image
-                className="block h-[50px] w-full"
-                src="/logo.webp"
-                alt="Logo e Botão da Homepage"
-                width="0"
-                height="0"
-                unoptimized
-                priority={true}
+            <div className="w-fit h-fit relative after:bg-[url(/logo-arc.png)] after:z-20 after:content-[''] after:absolute after:w-[73px] after:h-[20px] after:bg-no-repeat after:bg-contain after:mt-[8px] after:right-[82px] after:block lg:after:mt-[11px]">
+              <Link className="block" href={"/"}>
+                <Image
+                  className="block h-[50px] w-full"
+                  src="/logo.webp"
+                  alt="Logo e Botão da Homepage"
+                  width="0"
+                  height="0"
+                  unoptimized
+                  priority={true}
+                />
+              </Link>
+            </div>
+
+            {isScreen1024Px ? (
+              <Menu
+                menuOpen={menuOpen}
+                setMenuOpen={setMenuOpen}
+                isScreen1024Px={isScreen1024Px}
+                isLinkActive={isLinkActive}
               />
-            </Link>
+            ) : (
+              <button
+                aria-label={menuOpen ? "Fechar Menu" : "Abrir Menu"}
+                aria-expanded={menuOpen}
+                className="flex flex-col cursor-pointer lg:hidden"
+                onClick={toggleMenu}
+              >
+                <div
+                  className={`transition-02s w-[35px] h-1 bg-[white] my-[3px] p-0  ${
+                    menuOpen ? "hamburger-spin-positive" : ""
+                  }`}
+                ></div>
+                <div
+                  className={`transition-02s w-[35px] h-1 bg-[white] my-[3px] p-0 ${
+                    menuOpen ? "!bg-[black]" : ""
+                  }`}
+                ></div>
+                <div
+                  className={`transition-02s w-[35px] h-1 bg-[white] my-[3px] p-0 ${
+                    menuOpen ? "hamburger-spin-negative" : ""
+                  }`}
+                ></div>
+              </button>
+            )}
           </div>
-
-          {isScreen1024Px ? (
-            <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} isScreen1024Px={isScreen1024Px} isLinkActive={isLinkActive} />
-          ) : (
-            <button
-              aria-label={menuOpen ? "Fechar Menu" : "Abrir Menu"}
-              aria-expanded={menuOpen}
-              className="flex flex-col cursor-pointer lg:hidden"
-              onClick={toggleMenu}
-            >
-              <div
-                className={`transition-02s w-[35px] h-1 bg-[white] my-[3px] p-0  ${
-                  menuOpen ? "hamburger-spin-positive" : ""
-                }`}
-              ></div>
-              <div
-                className={`transition-02s w-[35px] h-1 bg-[white] my-[3px] p-0 ${
-                  menuOpen ? "!bg-[black]" : ""
-                }`}
-              ></div>
-              <div
-                className={`transition-02s w-[35px] h-1 bg-[white] my-[3px] p-0 ${
-                  menuOpen ? "hamburger-spin-negative" : ""
-                }`}
-              ></div>
-            </button>
-          )}
         </div>
 
         {!isScreen1024Px && (
-          <Menu menuOpen={menuOpen} setMenuOpen={setMenuOpen} isScreen1024Px={isScreen1024Px} isLinkActive={isLinkActive} />
+          <Menu
+            menuOpen={menuOpen}
+            setMenuOpen={setMenuOpen}
+            isScreen1024Px={isScreen1024Px}
+            isLinkActive={isLinkActive}
+          />
         )}
       </nav>
     </>

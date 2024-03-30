@@ -15,11 +15,11 @@ const ServicePricing = ({ contentData03 }) => {
   };
 
   return (
-    <>
+    <div className="px-[24px] lg:px-[48px] mb-[72px]">
       {contentData03.data && (
-        <div className="px-[24px] lg:px-[48px] mb-[72px] flex flex-col gap-[24px]">
+        <div className="max-container flex flex-col gap-[24px]">
           <div>
-            <h2 className="w-fit text-[black] font-bold text-[1.5rem]">
+            <h2 className="w-fit text-[black] font-bold text-[1.25rem] sm:text-[1.5rem]">
               Preços:
             </h2>
           </div>
@@ -44,10 +44,10 @@ const ServicePricing = ({ contentData03 }) => {
               </ul>
 
               <div className="overflow-x-auto">
-                {contentData03.data?.map((mapItem, itemIndex, arrayOfItems) => (
+                {contentData03.data?.map((mapItem) => (
                   <div key={mapItem.id}>
                     {mapItem.attributes.Pricing.TableItems.map(
-                      (mapItem, itemIndex, arrayOfItems) => (
+                      (mapItem) => (
                         <div key={mapItem.id}>
                           <div
                             className={`grid grid-cols-test items-center text-[white] bg-blueForText`}
@@ -131,7 +131,7 @@ const ServicePricing = ({ contentData03 }) => {
           />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

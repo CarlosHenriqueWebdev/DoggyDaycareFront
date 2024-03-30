@@ -1,13 +1,40 @@
-// pages/index.js
-import useDataFetching from "@/hooks/useDataFetching";
-import { useState } from "react";
+import React, { useState } from "react";
+import { gql } from "@apollo/client";
+import useStrapiData from "@/hooks/useStrapiData";
 import CountUp from "react-countup";
 import { Waypoint } from "react-waypoint";
+import { API_BASE_URL } from "../../../../../lib/config";
+
+const GET_NUMBER_COUNTER_DATA = gql`
+  query GetNumberCounterData {
+    contentMedia {
+      data {
+        attributes {
+          NumberCounter {
+            CounterBackgroundImage {
+              data {
+                attributes {
+                  url
+                }
+              }
+            }
+            GlassOverlayTransparency
+            NumberCounterRepetable {
+              id
+              DurationInSeconds
+              CounterAmount
+              CounterSubtitle
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 const NumberCounter = () => {
-  const urlToFetch =
-    "https://not-cool.onrender.com/api/content-media?populate[NumberCounter][populate]=*";
-  const { completeDataJSON: contentData } = useDataFetching(urlToFetch);
+  const { data } = useStrapiData(GET_NUMBER_COUNTER_DATA);
+  const numberCounterData = data?.contentMedia?.data?.attributes?.NumberCounter;
 
   const [startAnimation, setStartAnimation] = useState(false);
 
@@ -17,46 +44,50 @@ const NumberCounter = () => {
 
   return (
     <>
-      {/* Content */}
-      {contentData.data ? (
+      {numberCounterData ? (
         <div
           style={{
-            backgroundImage: `url(https://not-cool.onrender.com${contentData.data.attributes.NumberCounter.CounterBackgroundImage.data.attributes.url})`,
+            backgroundImage: `url(${
+              API_BASE_URL +
+              numberCounterData.CounterBackgroundImage.data.attributes.url
+            })`,
           }}
           className="bg-cover bg-center relative bg-fixed"
         >
           <h2 className="visually-hidden">Estatísticas do Nosso Sucesso</h2>
 
-          <ul
+          <div
             style={{
-              backgroundColor: `rgba(0, 0, 0, 0.${contentData.data.attributes.NumberCounter.GlassOverlayTransparency})`,
+              backgroundColor: `rgba(0, 0, 0, 0.${numberCounterData.GlassOverlayTransparency})`,
             }}
-            className="px-[24px] lg:px-[48px] mt-[72px] flex flex-col gap-2 items-center justify-center py-[12%] w-[100%] h-[100%] md:gap-[16px] md:py-[4%] lg:grid lg:grid-cols-3 border-solid border-crimsonRed border-y-[6px]"
+            className="mt-[72px] md:py-[4%] py-[12%] w-[100%] h-[100%] border-solid border-crimsonRed border-y-[6px]"
           >
-            {contentData.data.attributes.NumberCounter.NumberCounterRepetable.map(
-              (mapItem) => (
-                <li
-                  key={mapItem.id}
-                  className="w-full text-center p-4 border-4 border-solid border-deepMaroon bg-midnightBlack"
-                >
-                  <Waypoint onEnter={handleEnter} />
+            <div className="px-[24px] lg:px-[48px] ">
+              <ul className="max-container flex flex-col gap-2 items-center justify-center md:gap-[16px] lg:grid lg:grid-cols-3">
+                {numberCounterData.NumberCounterRepetable.map((mapItem) => (
+                  <li
+                    key={mapItem.id}
+                    className="w-full text-center p-4 border-4 border-solid border-deepMaroon bg-midnightBlack"
+                  >
+                    <Waypoint onEnter={handleEnter} />
 
-                  <h3 className="flex gap-1 flex-col">
-                    <CountUp
-                      className="text-crimsonRed font-black text-[1.5rem] "
-                      duration={mapItem.DurationInSeconds}
-                      end={mapItem.CounterAmount}
-                      start={startAnimation}
-                    />
+                    <h3 className="flex gap-1 flex-col">
+                      <CountUp
+                        className="text-crimsonRed font-black text-[1.25rem] sm:text-[1.5rem]"
+                        duration={mapItem.DurationInSeconds}
+                        end={mapItem.CounterAmount}
+                        start={startAnimation}
+                      />
 
-                    <span className="font-semibold text-white75 ">
-                      {mapItem.CounterSubtitle}
-                    </span>
-                  </h3>
-                </li>
-              )
-            )}
-          </ul>
+                      <span className="font-semibold text-white75 ">
+                        {mapItem.CounterSubtitle}
+                      </span>
+                    </h3>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       ) : (
         <div

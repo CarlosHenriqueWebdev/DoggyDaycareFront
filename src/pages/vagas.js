@@ -1,6 +1,5 @@
 import Footer from "@/components/common/Footer/Footer";
 import NavBar from "@/components/common/NavBar/NavBar";
-import CallToActionBooking from "@/components/common/CallToAction/CallToActionBooking";
 import Benefits from "@/components/page-content/open-positions/Benefits/Benefits";
 import MainContent from "@/components/page-content/open-positions/MainContent/MainContent";
 import PositionsHero from "@/components/page-content/open-positions/PositionsHero/PositionsHero";
@@ -13,10 +12,11 @@ import useCheckFetch from "@/hooks/useCheckFetch";
 import LoadingScreen from "@/components/common/LoadingScreen/LoadingScreen";
 import ServerDown from "@/components/common/ServerDown/ServerDown";
 import CallToActionContact from "@/components/common/CallToAction/CallToActionContact";
+import { API_BASE_URL } from "../../lib/config";
 
 const Vagas = () => {
   const apiUrl =
-    "https://not-cool.onrender.com/api/open-positions-page?populate=*";
+  API_BASE_URL + "/api/open-positions-page?populate=*";
   const { loading, error } = useCheckFetch(apiUrl);
 
   if (loading) {

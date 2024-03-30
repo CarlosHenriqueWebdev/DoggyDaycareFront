@@ -1,10 +1,11 @@
 import useDataFetching from "@/hooks/useDataFetching";
+import { API_BASE_URL } from "../../../lib/config";
 
 const NewSharedData = () => {
-  const urlToFetch01 = `https://not-cool.onrender.com/api/services-collections?populate=*`;
+  const urlToFetch01 = `${API_BASE_URL}/api/services-collections?populate=*`;
   const { completeDataJSON: contentData01 } = useDataFetching(urlToFetch01);
 
-  const urlToFetch02 = `https://not-cool.onrender.com/api/open-positions?populate=*`;
+  const urlToFetch02 = `${API_BASE_URL}/api/open-positions?populate=*`;
   const { completeDataJSON: contentData02 } = useDataFetching(urlToFetch02);
 
   return {

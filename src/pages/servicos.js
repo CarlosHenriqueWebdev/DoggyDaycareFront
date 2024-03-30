@@ -1,6 +1,5 @@
 import Footer from "@/components/common/Footer/Footer";
 import NavBar from "@/components/common/NavBar/NavBar";
-import CallToActionBooking from "@/components/common/CallToAction/CallToActionBooking";
 import Testimonials from "@/components/page-content/homepage/Testimonials/Testimonials";
 import Introduction from "@/components/page-content/services/Introduction/Introduction";
 import ServicesHero from "@/components/page-content/services/ServicesHero/ServicesHero";
@@ -10,10 +9,10 @@ import Head from "next/head";
 import useCheckFetch from "@/hooks/useCheckFetch";
 import LoadingScreen from "@/components/common/LoadingScreen/LoadingScreen";
 import ServerDown from "@/components/common/ServerDown/ServerDown";
-import LazyLoadComponent from "@/components/common/LazyLoadComponent/LazyLoadComponent";
+import { API_BASE_URL } from "../../lib/config";
 
 const Servicos = () => {
-  const apiUrl = "https://not-cool.onrender.com/api/services-page?populate=*";
+  const apiUrl = API_BASE_URL + "/api/services-page?populate=*";
   const { loading, error } = useCheckFetch(apiUrl);
 
   if (loading) {
