@@ -82,7 +82,7 @@ const IndividualServices = () => {
     return allImagePaths;
   };
 
-  const apiUrl = "${API_BASE_URL}/api/services-collections?populate=*";
+  const apiUrl = API_BASE_URL + "/api/services-collections?populate=*";
   const { loading: checkLoading, error } = useCheckFetch(apiUrl);
 
   if (checkLoading) {
